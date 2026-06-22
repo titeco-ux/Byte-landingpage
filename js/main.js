@@ -188,42 +188,85 @@ document.addEventListener('DOMContentLoaded', init);
 
 /* Vertical dial — each notch reveals its card (section 2) */
 (function () {
-  const dial = document.querySelector(".pain-dial");
-  if (!dial) return;
-
-  const steps = Array.prototype.slice.call(dial.querySelectorAll(".dial-step"));
-  const cards = Array.prototype.slice.call(dial.querySelectorAll(".dial-card"));
-  const thumb = dial.querySelector(".dial-thumb");
-  if (!steps.length || !cards.length) return;
-
-  const DWELL = 4000; // ms each card stays before auto-advancing
+  const dials = document.querySelectorAll(".pain-dial");
+  if (!dials.length) return;
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let index = 0, timer = null;
+  const DWELL = 4000; // ms each card stays before auto-advancing
 
-  function moveThumb() {
-    const s = steps[index];
-    thumb.style.height = s.offsetHeight + "px";
-    thumb.style.transform = "translateY(" + s.offsetTop + "px)";
+  dials.forEach(function (dial) {
+    const steps = Array.prototype.slice.call(dial.querySelectorAll(".dial-step"));
+    const cards = Array.prototype.slice.call(dial.querySelectorAll(".dial-card"));
+    const thumb = dial.querySelector(".dial-thumb");
+    if (!steps.length || !cards.length) return;
+
+    let index = 0, timer = null;
+
+    const horizontal = dial.classList.contains("pain-dial--horizontal");
+    function moveThumb() {
+      const s = steps[index];
+      if (horizontal) {
+        thumb.style.width = s.offsetWidth + "px";
+        thumb.style.transform = "translateX(" + s.offsetLeft + "px)";
+      } else {
+        thumb.style.height = s.offsetHeight + "px";
+        thumb.style.transform = "translateY(" + s.offsetTop + "px)";
+      }
+    }
+    function select(i) {
+      index = i;
+      steps.forEach(function (s, k) { s.classList.toggle("is-active", k === i); s.setAttribute("aria-selected", k === i); });
+      cards.forEach(function (c, k) { c.classList.toggle("is-active", k === i); });
+      moveThumb();
+    }
+    function next() { select((index + 1) % steps.length); }
+    function play() { if (reduce) return; clearInterval(timer); timer = setInterval(next, DWELL); }
+    function stop() { clearInterval(timer); }
+
+    steps.forEach(function (s, k) {
+      s.addEventListener("click", function () { select(k); play(); });
+      s.addEventListener("mouseenter", function () { select(k); });
+    });
+    dial.addEventListener("mouseenter", stop);
+    dial.addEventListener("mouseleave", play);
+    window.addEventListener("resize", moveThumb);
+    window.addEventListener("load", moveThumb);
+
+    select(0);
+    play();
+  });
+})();
+
+/* Testimonials carousel (section 5) */
+(function () {
+  const track = document.getElementById("testimonials-track");
+  if (!track) return;
+  const carousel = track.closest(".testimonials-carousel");
+  const btns = carousel.querySelectorAll(".carousel-btn");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let timer = null;
+
+  function step() {
+    const card = track.querySelector(".testimonial-card");
+    if (!card) return track.clientWidth;
+    const cs = getComputedStyle(track);
+    const gap = parseFloat(cs.columnGap || cs.gap) || 0;
+    return card.offsetWidth + gap;
   }
-  function select(i) {
-    index = i;
-    steps.forEach(function (s, k) { s.classList.toggle("is-active", k === i); s.setAttribute("aria-selected", k === i); });
-    cards.forEach(function (c, k) { c.classList.toggle("is-active", k === i); });
-    moveThumb();
+  function go(dir) {
+    const max = track.scrollWidth - track.clientWidth;
+    let target = track.scrollLeft + dir * step();
+    if (dir > 0 && track.scrollLeft >= max - 2) target = 0;   // loop to start
+    else if (dir < 0 && track.scrollLeft <= 2) target = max;  // loop to end
+    track.scrollTo({ left: target, behavior: "smooth" });
   }
-  function next() { select((index + 1) % steps.length); }
-  function play() { if (reduce) return; clearInterval(timer); timer = setInterval(next, DWELL); }
+  function play() { if (reduce) return; clearInterval(timer); timer = setInterval(function () { go(1); }, 5000); }
   function stop() { clearInterval(timer); }
 
-  steps.forEach(function (s, k) {
-    s.addEventListener("click", function () { select(k); play(); });
-    s.addEventListener("mouseenter", function () { select(k); });
+  btns.forEach(function (b) {
+    b.addEventListener("click", function () { go(parseInt(b.getAttribute("data-dir"), 10)); play(); });
   });
-  dial.addEventListener("mouseenter", stop);
-  dial.addEventListener("mouseleave", play);
-  window.addEventListener("resize", moveThumb);
-  window.addEventListener("load", moveThumb);
+  carousel.addEventListener("mouseenter", stop);
+  carousel.addEventListener("mouseleave", play);
 
-  select(0);
   play();
 })();

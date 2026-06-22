@@ -226,7 +226,7 @@
   function onMove(e) {
     const rect = canvas.getBoundingClientRect();
     mx = e.clientX - rect.left; my = e.clientY - rect.top;
-    hovering = mx >= 0 && my >= 0 && mx <= w && my <= h;
+    hovering = Math.hypot(mx - cx, my - cy) <= R; // only when cursor is over the globe
     if (hovering) {
       tgtLon = ((mx - cx) / R) * HOVER_LON;
       tgtLat = Math.max(-HOVER_LAT, Math.min(HOVER_LAT, -((my - cy) / R) * HOVER_LAT));

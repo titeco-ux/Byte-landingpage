@@ -682,11 +682,16 @@ section {
   padding: var(--space-16) 0;
 }
 
+.section-whitelabel .section-label { text-align: center; }
+
 .section-whitelabel h2 {
   color: var(--color-bg);
   font-size: var(--text-3xl);
   max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
   letter-spacing: -0.02em;
+  text-align: center;
 }
 
 .section-whitelabel p {
@@ -694,7 +699,10 @@ section {
   font-size: var(--text-lg);
   max-width: 660px;
   margin-top: var(--space-4);
+  margin-left: auto;
+  margin-right: auto;
   line-height: 1.7;
+  text-align: center;
 }
 
 .whitelabel-close {
@@ -797,31 +805,38 @@ section {
   max-width: 560px;
 }
 
-/* Clutch block */
-.clutch-block {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-3);
+/* Unified proof card */
+.proof-card {
   margin-top: var(--space-10);
   background-color: var(--color-surface-2);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
 }
+.proof-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-3);
+}
+.proof-link { align-self: flex-end; }   /* bottom-right of the card */
 
 .clutch-stars {
   color: var(--color-primary);
-  font-size: var(--text-2xl);
+  font-size: var(--text-3xl);
   letter-spacing: 2px;
   line-height: 1;
 }
 
 .clutch-score {
   font-family: var(--font-heading);
-  font-size: var(--text-5xl);
+  font-size: 4.5rem;          /* 1.5× the previous 3rem */
   font-weight: 800;
-  color: var(--color-text);
+  color: var(--color-primary);
   line-height: 1;
   letter-spacing: -0.04em;
 }
@@ -837,29 +852,28 @@ section {
 
 .clutch-meta .sep { opacity: 0.3; }
 
-/* Stat row */
-.stat-row {
+/* Stats row inside the proof card */
+.proof-stats {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-4);
-  margin-top: var(--space-10);
+  gap: var(--space-6) var(--space-4);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border);
+  text-align: center;
 }
 
 .stat {
-  background-color: var(--color-surface-2);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-6);
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: var(--space-2);
 }
 
 .stat-number {
   font-family: var(--font-heading);
-  font-size: var(--text-4xl);
+  font-size: var(--text-2xl);   /* 2× smaller than the previous 3rem */
   font-weight: 800;
-  color: var(--color-primary);
+  color: var(--color-bg);
   line-height: 1;
   letter-spacing: -0.03em;
 }
@@ -870,14 +884,51 @@ section {
 }
 
 /* Testimonials */
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-4);
+/* Testimonials carousel */
+.testimonials-carousel {
   margin-top: var(--space-10);
+}
+.carousel-track {
+  display: flex;
+  gap: var(--space-4);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;            /* Firefox */
+  -ms-overflow-style: none;         /* old Edge */
+  padding-bottom: var(--space-2);
+}
+.carousel-track::-webkit-scrollbar { display: none; }
+
+.carousel-controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+.carousel-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(15, 17, 18, 0.2);
+  background: transparent;
+  color: var(--color-bg);
+  font-size: var(--text-2xl);
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.carousel-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
 }
 
 .testimonial-card {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
   background-color: var(--color-surface-2);
   border: 1px solid var(--color-border);
   border-left: 3px solid var(--color-primary);
@@ -886,6 +937,13 @@ section {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
+}
+
+.testimonial-stars {
+  color: var(--color-primary);
+  font-size: var(--text-lg);
+  letter-spacing: 2px;
+  line-height: 1;
 }
 
 .testimonial-card > p {
@@ -972,6 +1030,95 @@ section {
   line-height: 1.6;
 }
 
+
+/* ==========================================================================
+   SECTION — 5b. WHAT WE'VE BUILT (case studies dial)
+   ========================================================================== */
+.section-cases {
+  background-color: var(--color-bg);
+}
+/* dial recolored for the dark background */
+.section-cases .dial-track::before { background: rgba(252, 252, 252, 0.12); }
+.section-cases .dial-step { color: rgba(252, 252, 252, 0.45); }
+.section-cases .dial-step:hover { color: rgba(252, 252, 252, 0.8); }
+.section-cases .dial-step.is-active { color: #FCFCFC; }
+.section-cases .dial-card {
+  background-color: var(--color-surface);   /* matches section 3 cards */
+  border: 1px solid var(--color-border);
+}
+/* spread Challenge / Solution / Result across the card width */
+.section-cases .dial-card p { max-width: none; }
+.section-cases .case-body {
+  flex-direction: row;
+  gap: var(--space-10);
+}
+.section-cases .case-item { flex: 1 1 0; }
+@media (max-width: 768px) {
+  .section-cases .case-body { flex-direction: column; gap: var(--space-5); }
+}
+
+/* Horizontal dial: steps across the top, cards below */
+.pain-dial--horizontal {
+  flex-direction: column;
+  gap: var(--space-8);
+}
+.pain-dial--horizontal .dial-track {
+  flex: none;
+  max-width: none;
+  flex-direction: row;
+  padding-left: 0;
+  padding-bottom: var(--space-3);
+  gap: var(--space-2);
+}
+.pain-dial--horizontal .dial-track::before {   /* line along the bottom */
+  left: 0;
+  right: 0;
+  top: auto;
+  bottom: 0;
+  width: auto;
+  height: 2px;
+}
+.pain-dial--horizontal .dial-thumb {           /* underline that slides sideways */
+  left: 0;
+  top: auto;
+  bottom: 0;
+  width: 0;
+  height: 4px;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), width 0.35s ease;
+}
+.pain-dial--horizontal .dial-step {
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-1);
+}
+
+/* Case-card icons (flat line icons, brand color) */
+.case-icon {
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin-bottom: var(--space-4);
+  background-color: var(--color-primary);
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+          mask-position: center;
+  -webkit-mask-size: contain;
+          mask-size: contain;
+}
+.case-icon--health {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='black'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='M20.8%204.6a5.5%205.5%200%200%200-7.8%200L12%205.7l-1-1.1a5.5%205.5%200%200%200-7.8%207.8l1%201.1L12%2021l7.8-7.5%201-1.1a5.5%205.5%200%200%200%200-7.8z'/%3E%3C/svg%3E");
+          mask-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='black'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='M20.8%204.6a5.5%205.5%200%200%200-7.8%200L12%205.7l-1-1.1a5.5%205.5%200%200%200-7.8%207.8l1%201.1L12%2021l7.8-7.5%201-1.1a5.5%205.5%200%200%200%200-7.8z'/%3E%3C/svg%3E");
+}
+.case-icon--structure {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='black'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='M22%2012h-4l-3%209L9%203l-3%209H2'/%3E%3C/svg%3E");
+          mask-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='black'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='M22%2012h-4l-3%209L9%203l-3%209H2'/%3E%3C/svg%3E");
+}
+.case-icon--agri {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='black'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='M11%2020A7%207%200%200%201%204%2013C4%207%2011%204%2020%204c0%209-3%2016-9%2016z'/%3E%3Cpath%20d='M4%2020c2-4%205-7%209-9'/%3E%3C/svg%3E");
+          mask-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='black'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='M11%2020A7%207%200%200%201%204%2013C4%207%2011%204%2020%204c0%209-3%2016-9%2016z'/%3E%3Cpath%20d='M4%2020c2-4%205-7%209-9'/%3E%3C/svg%3E");
+}
 
 /* ==========================================================================
    SECTION — 6. WHY US
@@ -1371,14 +1518,14 @@ section {
   color: var(--color-bg) !important;
 }
 
-/* Clutch block */
-.section-proof .clutch-block {
+/* Proof card */
+.section-proof .proof-card {
   background-color: rgba(15, 17, 18, 0.05);
   border-color: rgba(15, 17, 18, 0.1);
 }
 
 .section-proof .clutch-score {
-  color: var(--color-bg);
+  color: var(--color-primary);
 }
 
 .section-proof .clutch-meta {
@@ -1395,33 +1542,32 @@ section {
   color: var(--color-primary);
 }
 
-/* Stats */
-.section-proof .stat {
-  background-color: rgba(15, 17, 18, 0.05);
-  border-color: rgba(15, 17, 18, 0.1);
+/* Clutch link — borderless, yellow text */
+.section-proof .proof-link,
+.section-proof .proof-link:hover {
+  border: none;
+  background: none;
+  padding-left: 0;
+  padding-right: 0;
+  color: var(--color-primary);
+}
+.section-proof .proof-link:hover { color: var(--color-primary-dark); }
+
+/* Stats divider on the light proof card */
+.section-proof .proof-stats {
+  border-top-color: rgba(15, 17, 18, 0.1);
 }
 
 .section-proof .stat-label {
   color: rgba(15, 17, 18, 0.6);
 }
 
-/* Testimonials */
+/* Testimonials — dark cards on the light section */
 .section-proof .testimonial-card {
-  background-color: rgba(15, 17, 18, 0.05);
+  background-color: var(--color-bg);
   border-color: rgba(15, 17, 18, 0.1);
 }
-
-.section-proof .testimonial-card > p {
-  color: var(--color-bg);
-}
-
-.section-proof .testimonial-card footer {
-  color: rgba(15, 17, 18, 0.6);
-}
-
-.section-proof .testimonial-card .location {
-  color: rgba(15, 17, 18, 0.4);
-}
+/* text colors fall back to the light base styles (light on dark) */
 
 /* Case studies */
 .section-proof .case-studies h3 {
@@ -1528,8 +1674,8 @@ section {
   .nav-links   { display: flex; }
 
   .model-grid         { grid-template-columns: repeat(2, 1fr); }
-  .stat-row           { grid-template-columns: repeat(4, 1fr); }
-  .testimonials-grid  { grid-template-columns: repeat(2, 1fr); }
+  .proof-stats        { grid-template-columns: repeat(4, 1fr); }
+  .carousel-track .testimonial-card { flex-basis: calc(50% - var(--space-4) / 2); }
   .cases-grid         { grid-template-columns: repeat(2, 1fr); }
   .why-grid           { grid-template-columns: repeat(2, 1fr); }
   .stack-grid         { grid-template-columns: repeat(2, 1fr); }
@@ -1554,6 +1700,7 @@ section {
   .why-grid   { grid-template-columns: repeat(3, 1fr); }
   .stack-grid { grid-template-columns: repeat(3, 1fr); }
   .fit-grid   { grid-template-columns: repeat(2, 1fr); }
+  .carousel-track .testimonial-card { flex-basis: calc(33.333% - var(--space-4) * 2 / 3); }
 }
 
 /* --- Wide: 1280px --- */

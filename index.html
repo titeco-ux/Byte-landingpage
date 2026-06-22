@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.css?v=2">
 </head>
 <body>
 
@@ -187,61 +187,87 @@
         <h2>Senior teams trust us with their builds.</h2>
         <p class="section-intro">We can't show you their logos. The work — and the reviews — speak for themselves.</p>
 
-        <div class="clutch-block">
-          <div class="clutch-stars" aria-label="5 star rating">★★★★★</div>
-          <div class="clutch-score">5.0</div>
-          <div class="clutch-meta">
-            <span>8 verified reviews</span>
-            <span class="sep">·</span>
-            <span>100% willing to refer</span>
+        <div class="testimonials-carousel">
+          <div class="carousel-track" id="testimonials-track">
+            <blockquote class="testimonial-card">
+              <div class="testimonial-stars" aria-label="5 star rating">★★★★★</div>
+              <p>"We were impressed with their flexibility and skills."</p>
+              <footer>CEO, healthcare-data software company <span class="location">— San Diego</span></footer>
+            </blockquote>
+            <blockquote class="testimonial-card">
+              <div class="testimonial-stars" aria-label="5 star rating">★★★★★</div>
+              <p>"They were enthusiastic and a good listener."</p>
+              <footer>Head of Business Development, structural-health-monitoring firm <span class="location">— Illinois</span></footer>
+            </blockquote>
+            <blockquote class="testimonial-card">
+              <div class="testimonial-stars" aria-label="5 star rating">★★★★★</div>
+              <p>"I could say what I needed, and ByteNana turned it into code."</p>
+              <footer>CEO, agritech company <span class="location">— Virginia</span></footer>
+            </blockquote>
+            <blockquote class="testimonial-card">
+              <div class="testimonial-stars" aria-label="5 star rating">★★★★★</div>
+              <p>"Extremely responsive and easy to speak with."</p>
+              <footer>CEO, electronic-monitoring firm <span class="location">— North Dakota</span></footer>
+            </blockquote>
           </div>
-          <a href="#" class="btn btn-secondary btn-sm" aria-label="Read ByteNana reviews on Clutch">Read the reviews on Clutch →</a>
+          <div class="carousel-controls">
+            <button class="carousel-btn" type="button" data-dir="-1" aria-label="Previous testimonial">‹</button>
+            <button class="carousel-btn" type="button" data-dir="1" aria-label="Next testimonial">›</button>
+          </div>
         </div>
 
-        <div class="stat-row">
-          <div class="stat">
-            <span class="stat-number">8/8</span>
-            <span class="stat-label">Five-star reviews</span>
+        <div class="proof-card">
+          <div class="proof-top">
+            <div class="clutch-stars" aria-label="5 star rating">★★★★★</div>
+            <div class="clutch-score">5.0</div>
+            <div class="clutch-meta">
+              <span>8 verified reviews</span>
+              <span class="sep">·</span>
+              <span>100% willing to refer</span>
+            </div>
           </div>
-          <div class="stat">
-            <span class="stat-number">5.0</span>
-            <span class="stat-label">Quality score</span>
+          <div class="proof-stats">
+            <div class="stat">
+              <span class="stat-number">8/8</span>
+              <span class="stat-label">Five-star reviews</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number">5.0</span>
+              <span class="stat-label">Quality score</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number">5.0</span>
+              <span class="stat-label">On-time score</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number">6</span>
+              <span class="stat-label">US states served</span>
+            </div>
           </div>
-          <div class="stat">
-            <span class="stat-number">5.0</span>
-            <span class="stat-label">On-time score</span>
-          </div>
-          <div class="stat">
-            <span class="stat-number">6</span>
-            <span class="stat-label">US states served</span>
-          </div>
+          <a href="#" class="btn btn-secondary btn-sm proof-link" aria-label="Read ByteNana reviews on Clutch">View on Clutch →</a>
         </div>
 
-        <div class="testimonials-grid">
-          <blockquote class="testimonial-card">
-            <p>"We were impressed with their flexibility and skills."</p>
-            <footer>CEO, healthcare-data software company <span class="location">— San Diego</span></footer>
-          </blockquote>
-          <blockquote class="testimonial-card">
-            <p>"They were enthusiastic and a good listener."</p>
-            <footer>Head of Business Development, structural-health-monitoring firm <span class="location">— Illinois</span></footer>
-          </blockquote>
-          <blockquote class="testimonial-card">
-            <p>"I could say what I needed, and ByteNana turned it into code."</p>
-            <footer>CEO, agritech company <span class="location">— Virginia</span></footer>
-          </blockquote>
-          <blockquote class="testimonial-card">
-            <p>"Extremely responsive and easy to speak with."</p>
-            <footer>CEO, electronic-monitoring firm <span class="location">— North Dakota</span></footer>
-          </blockquote>
-        </div>
+      </div>
+    </section>
 
-        <div class="case-studies">
-          <h3>What we've built</h3>
-          <div class="cases-grid">
-            <article class="case-card">
+    <!-- 5b. WHAT WE'VE BUILT -->
+    <section id="work" class="section-cases">
+      <div class="container">
+        <p class="section-label">Case Studies</p>
+        <h2>What we've built.</h2>
+        <p class="section-intro">Senior engineers, embedded in real product teams — here's what that looked like.</p>
+        <div class="pain-dial pain-dial--horizontal">
+          <div class="dial-track" role="tablist" aria-label="Case studies">
+            <span class="dial-thumb" aria-hidden="true"></span>
+            <button class="dial-step" type="button" role="tab"><span class="dial-num">01</span><span class="dial-label">Embedded into an existing product team</span></button>
+            <button class="dial-step" type="button" role="tab"><span class="dial-num">02</span><span class="dial-label">A modern frontend on an existing backend</span></button>
+            <button class="dial-step" type="button" role="tab"><span class="dial-num">03</span><span class="dial-label">A complex system from a rough requirement</span></button>
+          </div>
+          <div class="dial-cards">
+            <div class="dial-card" role="tabpanel">
+              <span class="case-icon case-icon--health" aria-hidden="true"></span>
               <p class="case-industry">Healthcare-data software · US</p>
-              <h4>Embedded into an existing product team</h4>
+              <h3>Embedded into an existing product team</h3>
               <div class="case-body">
                 <div class="case-item">
                   <span class="case-label">Challenge</span>
@@ -256,10 +282,11 @@
                   <p>Faster delivery on a complex, multi-part build, with capacity that flexed to demand.</p>
                 </div>
               </div>
-            </article>
-            <article class="case-card">
+            </div>
+            <div class="dial-card" role="tabpanel">
+              <span class="case-icon case-icon--structure" aria-hidden="true"></span>
               <p class="case-industry">Structural-health monitoring · US</p>
-              <h4>A modern frontend on an existing backend</h4>
+              <h3>A modern frontend on an existing backend</h3>
               <div class="case-body">
                 <div class="case-item">
                   <span class="case-label">Challenge</span>
@@ -274,10 +301,11 @@
                   <p>Delivered on time and on budget, with zero disruption to the backend.</p>
                 </div>
               </div>
-            </article>
-            <article class="case-card">
+            </div>
+            <div class="dial-card" role="tabpanel">
+              <span class="case-icon case-icon--agri" aria-hidden="true"></span>
               <p class="case-industry">Agritech / remote sensing · US</p>
-              <h4>A complex system from a rough requirement</h4>
+              <h3>A complex system from a rough requirement</h3>
               <div class="case-body">
                 <div class="case-item">
                   <span class="case-label">Challenge</span>
@@ -292,10 +320,9 @@
                   <p>An operational platform a customer said they wished had existed decades earlier.</p>
                 </div>
               </div>
-            </article>
+            </div>
           </div>
         </div>
-
       </div>
     </section>
 
@@ -521,7 +548,7 @@
     </div>
   </footer>
 
-  <script src="js/hero-map.js" defer></script>
-  <script src="js/main.js"></script>
+  <script src="js/hero-map.js?v=2" defer></script>
+  <script src="js/main.js?v=2"></script>
 </body>
 </html>
