@@ -147,3 +147,83 @@ function init() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
+
+/* Animated rotating headline */
+(function () {
+  const list = document.querySelector(".rotator__list");
+  if (!list) return;
+
+  const items = list.children;          // 3 phrases + clone of phrase 1
+  const HOLD  = 2200;                    // ms each phrase stays fully visible
+  const SLIDE = 600;                     // ms slide duration
+  const EASE  = "cubic-bezier(0.22, 1, 0.36, 1)";
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  let step  = items[0].offsetHeight;     // one line in px = the slide distance
+  let index = 0;
+
+  function advance() {
+    index++;
+    list.style.transition = "transform " + SLIDE + "ms " + EASE;
+    list.style.transform  = "translateY(" + (-index * step) + "px)";
+
+    if (index === items.length - 1) {    // landed on the clone
+      setTimeout(function () {
+        list.style.transition = "none";
+        index = 0;
+        list.style.transform = "translateY(0)";
+      }, SLIDE);
+    }
+  }
+
+  window.addEventListener("resize", function () {
+    step = items[0].offsetHeight;
+    list.style.transition = "none";
+    list.style.transform = "translateY(" + (-index * step) + "px)";
+  });
+
+  setInterval(advance, HOLD + SLIDE);
+})();
+
+/* Vertical dial — each notch reveals its card (section 2) */
+(function () {
+  const dial = document.querySelector(".pain-dial");
+  if (!dial) return;
+
+  const steps = Array.prototype.slice.call(dial.querySelectorAll(".dial-step"));
+  const cards = Array.prototype.slice.call(dial.querySelectorAll(".dial-card"));
+  const thumb = dial.querySelector(".dial-thumb");
+  if (!steps.length || !cards.length) return;
+
+  const DWELL = 4000; // ms each card stays before auto-advancing
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let index = 0, timer = null;
+
+  function moveThumb() {
+    const s = steps[index];
+    thumb.style.height = s.offsetHeight + "px";
+    thumb.style.transform = "translateY(" + s.offsetTop + "px)";
+  }
+  function select(i) {
+    index = i;
+    steps.forEach(function (s, k) { s.classList.toggle("is-active", k === i); s.setAttribute("aria-selected", k === i); });
+    cards.forEach(function (c, k) { c.classList.toggle("is-active", k === i); });
+    moveThumb();
+  }
+  function next() { select((index + 1) % steps.length); }
+  function play() { if (reduce) return; clearInterval(timer); timer = setInterval(next, DWELL); }
+  function stop() { clearInterval(timer); }
+
+  steps.forEach(function (s, k) {
+    s.addEventListener("click", function () { select(k); play(); });
+    s.addEventListener("mouseenter", function () { select(k); });
+  });
+  dial.addEventListener("mouseenter", stop);
+  dial.addEventListener("mouseleave", play);
+  window.addEventListener("resize", moveThumb);
+  window.addEventListener("load", moveThumb);
+
+  select(0);
+  play();
+})();

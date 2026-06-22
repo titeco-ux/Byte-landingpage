@@ -44,10 +44,20 @@
 
     <!-- 1. HERO -->
     <section id="hero" class="section-hero">
+      <canvas class="hero-map" aria-hidden="true"></canvas>
       <div class="container">
         <p class="section-label">01 — Hero</p>
-        <p class="eyebrow">Nearshore Engineering for US Agencies</p>
-        <h1>Senior engineers who work inside your stack — and under your brand.</h1>
+        <h1 class="hero-title">
+          <span class="hero-title__static">Senior engineers</span>
+          <span class="rotator">
+            <span class="rotator__list">
+              <span class="rotator__item">who work inside your stack</span>
+              <span class="rotator__item">who work under your brand.</span>
+              <span class="rotator__item">who work under your timezone</span>
+              <span class="rotator__item" aria-hidden="true">who work inside your stack</span>
+            </span>
+          </span>
+        </h1>
         <p class="hero-subhead">Pre-vetted senior developers from Brazil, in full real-time overlap with US hours. They drop into your repo, your standup, and your sprint cadence — and your client never knows we're there.</p>
         <div class="hero-ctas">
           <a href="#cta" class="btn btn-primary">Book a discovery call</a>
@@ -55,8 +65,6 @@
         </div>
         <div class="trust-strip">
           <span>★ 5.0 on Clutch</span>
-          <span class="sep">·</span>
-          <span>8 verified reviews</span>
           <span class="sep">·</span>
           <span>Full EST overlap</span>
           <span class="sep">·</span>
@@ -71,13 +79,43 @@
         <p class="section-label">02 — Pain</p>
         <h2>You won the work. Now you need the team to deliver it.</h2>
         <p class="section-intro">Agencies don't have an engineering problem — they have a <em>capacity</em> problem.</p>
-        <ul class="pain-list">
-          <li>You closed the pitch, and now there's no senior engineer free to build it.</li>
-          <li>A client's deadline is locked, and hiring won't move fast enough to hit it.</li>
-          <li>You need someone productive in your stack on day one — not a junior to manage into shape.</li>
-          <li>You need it done quietly, under your brand, with your client none the wiser.</li>
-          <li>You've been burned by offshore: the timezone lag, the rework, the "cheap" that wasn't.</li>
-        </ul>
+        <div class="pain-dial">
+          <div class="dial-track" role="tablist" aria-label="Capacity problems">
+            <span class="dial-thumb" aria-hidden="true"></span>
+            <button class="dial-step" type="button" role="tab"><span class="dial-num">01</span><span class="dial-label">No one free to build it</span></button>
+            <button class="dial-step" type="button" role="tab"><span class="dial-num">02</span><span class="dial-label">Deadlines won't wait</span></button>
+            <button class="dial-step" type="button" role="tab"><span class="dial-num">03</span><span class="dial-label">Productive on day one</span></button>
+            <button class="dial-step" type="button" role="tab"><span class="dial-num">04</span><span class="dial-label">Quiet, under your brand</span></button>
+            <button class="dial-step" type="button" role="tab"><span class="dial-num">05</span><span class="dial-label">Burned by offshore</span></button>
+          </div>
+          <div class="dial-cards">
+            <div class="dial-card" role="tabpanel">
+              <span class="card-icon" aria-hidden="true">⊘</span>
+              <h3>No one free to build it</h3>
+              <p>You closed the pitch, and now there's no senior engineer free to build it.</p>
+            </div>
+            <div class="dial-card" role="tabpanel">
+              <span class="card-icon" aria-hidden="true">◷</span>
+              <h3>Deadlines won't wait</h3>
+              <p>A client's deadline is locked, and hiring won't move fast enough to hit it.</p>
+            </div>
+            <div class="dial-card" role="tabpanel">
+              <span class="card-icon" aria-hidden="true">✦</span>
+              <h3>Productive on day one</h3>
+              <p>You need someone productive in your stack on day one — not a junior to manage into shape.</p>
+            </div>
+            <div class="dial-card" role="tabpanel">
+              <span class="card-icon" aria-hidden="true">◈</span>
+              <h3>Quiet, under your brand</h3>
+              <p>You need it done quietly, under your brand, with your client none the wiser.</p>
+            </div>
+            <div class="dial-card" role="tabpanel">
+              <span class="card-icon" aria-hidden="true">⊗</span>
+              <h3>Burned by offshore</h3>
+              <p>You've been burned by offshore: the timezone lag, the rework, the "cheap" that wasn't.</p>
+            </div>
+          </div>
+        </div>
         <p class="pain-close">That's the gap we fill.</p>
       </div>
     </section>
@@ -118,8 +156,27 @@
       <div class="container">
         <p class="section-label">04 — White Label</p>
         <h2>Notice there are no client logos on this page?</h2>
-        <p>That's deliberate. We work invisibly, under your brand — so your clients never know we exist. Plastering their names across our site would defeat the entire point of hiring us. Discretion isn't a feature we bolted on. It's the whole model.</p>
-        <p class="whitelabel-close">The proof lives where it should — verified and third-party, on Clutch.</p>
+        <p>We work invisibly, under your brand — so your clients never know we exist.</p>
+      </div>
+
+      <div class="trust-marquee" aria-label="Client logos withheld under NDA">
+        <div class="trust-track" aria-hidden="true">
+          <span class="trust-chip"><span class="trust-lock" aria-hidden="true"></span><span class="trust-name">Northwind Labs</span></span>
+          <span class="trust-chip"><span class="trust-lock" aria-hidden="true"></span><span class="trust-name">Halcyon Health</span></span>
+          <span class="trust-chip"><span class="trust-lock" aria-hidden="true"></span><span class="trust-name">Atlas Fintech</span></span>
+          <span class="trust-chip"><span class="trust-lock" aria-hidden="true"></span><span class="trust-name">Vireo Commerce</span></span>
+          <span class="trust-chip"><span class="trust-lock" aria-hidden="true"></span><span class="trust-name">Meridian Media</span></span>
+          <span class="trust-chip"><span class="trust-lock" aria-hidden="true"></span><span class="trust-name">Cobalt Studios</span></span>
+          <span class="trust-chip"><span class="trust-lock" aria-hidden="true"></span><span class="trust-name">Larkspur SaaS</span></span>
+          <!-- duplicate set for a seamless loop -->
+          <span class="trust-chip"><span class="trust-lock" aria-hidden="true"></span><span class="trust-name">Northwind Labs</span></span>
+          <span class="trust-chip"><span class="trust-lock" aria-hidden="true"></span><span class="trust-name">Halcyon Health</span></span>
+          <span class="trust-chip"><span class="trust-lock" aria-hidden="true"></span><span class="trust-name">Atlas Fintech</span></span>
+          <span class="trust-chip"><span class="trust-lock" aria-hidden="true"></span><span class="trust-name">Vireo Commerce</span></span>
+          <span class="trust-chip"><span class="trust-lock" aria-hidden="true"></span><span class="trust-name">Meridian Media</span></span>
+          <span class="trust-chip"><span class="trust-lock" aria-hidden="true"></span><span class="trust-name">Cobalt Studios</span></span>
+          <span class="trust-chip"><span class="trust-lock" aria-hidden="true"></span><span class="trust-name">Larkspur SaaS</span></span>
+        </div>
       </div>
     </section>
 
@@ -464,6 +521,7 @@
     </div>
   </footer>
 
+  <script src="js/hero-map.js" defer></script>
   <script src="js/main.js"></script>
 </body>
 </html>
