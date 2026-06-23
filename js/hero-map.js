@@ -76,7 +76,7 @@
     canvas.width = Math.round(w * pxr);
     canvas.height = Math.round(h * pxr);
     ctx.setTransform(pxr, 0, 0, pxr, 0, 0);
-    R = Math.min(h * 0.529, w * 0.414); // ~15% larger than the original
+    R = Math.min(h * 0.3174, w * 0.2484); // 50% smaller, then +20%
     if (window.innerWidth <= 768) {     // mobile: globe centered in its band below the text
       cx = w / 2;
       cy = h * 0.5;

@@ -270,3 +270,46 @@ document.addEventListener('DOMContentLoaded', init);
 
   play();
 })();
+
+/* Tech stack tabs — sliding panels + color invert per tab (section 5) */
+(function () {
+  const section = document.querySelector(".section-techstack");
+  const tabs = Array.prototype.slice.call(document.querySelectorAll(".stack-tab"));
+  const panels = Array.prototype.slice.call(document.querySelectorAll(".stack-panel"));
+  if (!section || !tabs.length || !panels.length) return;
+
+  function select(i) {
+    // Alternate the section between the two brand themes on each tab
+    const bright = i % 2 === 1;
+    section.classList.toggle("theme-bright", bright);
+    section.classList.toggle("theme-light", !bright);
+
+    tabs.forEach(function (t, k) {
+      const on = k === i;
+      t.classList.toggle("is-active", on);
+      t.setAttribute("aria-selected", on ? "true" : "false");
+      t.setAttribute("tabindex", on ? "0" : "-1");
+    });
+    panels.forEach(function (p, k) {
+      const on = k === i;
+      // Reset display first so re-selecting a panel restarts its slide-in animation
+      p.classList.remove("is-active");
+      p.hidden = !on;
+      if (on) {
+        // force reflow so the animation re-triggers, then activate
+        void p.offsetWidth;
+        p.classList.add("is-active");
+      }
+    });
+  }
+
+  tabs.forEach(function (t, k) {
+    t.addEventListener("click", function () { select(k); });
+    t.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowDown" || e.key === "ArrowRight") { e.preventDefault(); select((k + 1) % tabs.length); tabs[(k + 1) % tabs.length].focus(); }
+      else if (e.key === "ArrowUp" || e.key === "ArrowLeft") { e.preventDefault(); const p = (k - 1 + tabs.length) % tabs.length; select(p); tabs[p].focus(); }
+    });
+  });
+
+  select(0);
+})();
