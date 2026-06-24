@@ -47,12 +47,26 @@
     ["sao", "ny"], ["sao", "aus"], ["sao", "mia"], ["sao", "chi"], ["sao", "sf"]
   ];
 
+  // Mirror the whole Americas setup onto the opposite side of the globe (+180°
+  // longitude) so the same cities/arrows reappear as it spins.
+  Object.keys(CITIES).forEach(function (k) {
+    const c = CITIES[k];
+    CITIES[k + "_m"] = { lat: c.lat, lon: c.lon + 180, us: c.us, r: c.r };
+  });
+  ROUTES.slice().forEach(function (r) {
+    ROUTES.push([r[0] + "_m", r[1] + "_m"]);
+  });
+
   let w = 0, h = 0, pxr = 1, t0 = 0, last = 0, raf = null;
   let cx = 0, cy = 0, R = 0;
   let polys = null;                            // [{name, rings}]
   let lon0 = VIEW_LON, lat0 = VIEW_LAT;
-  let hLon = 0, hLat = 0, tgtLon = 0, tgtLat = 0, hovering = false;
-  let mx = 0, my = 0;
+  let spin = 0;                                // accumulated auto-spin (deg)
+  let dragLat = 0;                             // vertical tilt from dragging (deg)
+  let dragging = false, grabX = 0, grabY = 0, spinAtGrab = 0, latAtGrab = 0;
+  const DRAG_LON = 0.35;                        // deg of spin per px dragged (x)
+  const DRAG_LAT = 0.25;                        // deg of tilt per px dragged (y)
+  const MAX_LAT  = 38;                          // clamp vertical tilt
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   function hexA(hex, a) {
@@ -212,31 +226,48 @@
   function frame(now) {
     const dt = Math.min(0.05, (now - last) / 1000); last = now;
     const time = (now - t0) / 1000;
-    hLon += (tgtLon - hLon) * Math.min(1, dt * 6);
-    hLat += (tgtLat - hLat) * Math.min(1, dt * 6);
-    lon0 += SPIN_DPS * dt * (hovering ? HOVER_SPIN : 1);
-    const baseLon = VIEW_LON + hLon;
-    lon0 = lon0 + (baseLon - lon0) * Math.min(1, dt * 2);
-    lat0 = VIEW_LAT + hLat;
+    if (!dragging) spin += SPIN_DPS * dt;   // auto-spin pauses while dragging
+    lon0 = VIEW_LON + spin;
+    lat0 = VIEW_LAT + dragLat;
     render(time);
     raf = requestAnimationFrame(frame);
   }
 
-  /* ---- hover (listen on window; canvas stays pointer-events:none) ---- */
-  function onMove(e) {
+  /* ---- drag to spin (listen on window; canvas stays pointer-events:none) ---- */
+  function overGlobe(e) {
     const rect = canvas.getBoundingClientRect();
-    mx = e.clientX - rect.left; my = e.clientY - rect.top;
-    hovering = Math.hypot(mx - cx, my - cy) <= R; // only when cursor is over the globe
-    if (hovering) {
-      tgtLon = ((mx - cx) / R) * HOVER_LON;
-      tgtLat = Math.max(-HOVER_LAT, Math.min(HOVER_LAT, -((my - cy) / R) * HOVER_LAT));
-    } else { tgtLon = 0; tgtLat = 0; }
+    return Math.hypot((e.clientX - rect.left) - cx, (e.clientY - rect.top) - cy) <= R;
+  }
+  function onDown(e) {
+    if (!overGlobe(e)) return;
+    dragging = true;
+    grabX = e.clientX; grabY = e.clientY;
+    spinAtGrab = spin; latAtGrab = dragLat;
+    document.body.classList.add("globe-grabbing");
+    e.preventDefault();
+  }
+  function onMove(e) {
+    if (dragging) {
+      spin = spinAtGrab + (e.clientX - grabX) * DRAG_LON;
+      dragLat = Math.max(-MAX_LAT, Math.min(MAX_LAT, latAtGrab - (e.clientY - grabY) * DRAG_LAT));
+      e.preventDefault();
+      return;
+    }
+    // cursor affordance when hovering over the globe
+    document.body.classList.toggle("globe-grab", overGlobe(e));
+  }
+  function onUp() {
+    if (!dragging) return;
+    dragging = false;
+    document.body.classList.remove("globe-grabbing");
   }
 
   function start() {
     if (reduce) { lon0 = VIEW_LON; lat0 = VIEW_LAT; render(0); return; }
-    window.addEventListener("pointermove", onMove, { passive: true });
-    window.addEventListener("pointerout", function () { hovering = false; tgtLon = 0; tgtLat = 0; });
+    window.addEventListener("pointerdown", onDown);
+    window.addEventListener("pointermove", onMove, { passive: false });
+    window.addEventListener("pointerup", onUp);
+    window.addEventListener("pointercancel", onUp);
     t0 = performance.now(); last = t0;
     raf = requestAnimationFrame(frame);
     document.addEventListener("visibilitychange", function () {
@@ -271,6 +302,16 @@
           polys.push({ name: name, rings: rings });
         });
       });
+      // Mirror every Americas outline (incl. Brazil) onto the opposite side
+      const mirrored = polys.map(function (p) {
+        return {
+          name: p.name,
+          rings: p.rings.map(function (ring) {
+            return ring.map(function (pt) { return [pt[0] + 180, pt[1]]; });
+          })
+        };
+      });
+      polys = polys.concat(mirrored);
       start();
     })
     .catch(function () { start(); });

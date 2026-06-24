@@ -140,6 +140,63 @@ if (contactForm) {
   contactForm.addEventListener('submit', handleFormSubmit);
 }
 
+// --- Booking modal (name/email gate -> Google calendar) ---
+const BOOKING_URL = 'https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1iDDrNFrD8QfgCNfShhvebpr0jzQH2of4gnWwSyvstKcQoJyuwdpNYy5Z7T0iWRsXAEd82kbHB';
+const bookingModal = document.getElementById('booking-modal');
+const bookingForm  = document.getElementById('booking-form');
+let bookingTrigger = null;
+
+function openBookingModal(trigger) {
+  if (!bookingModal) return;
+  bookingTrigger = trigger || null;
+  bookingModal.hidden = false;
+  document.body.classList.add('modal-open');
+  const firstInput = bookingModal.querySelector('input');
+  if (firstInput) setTimeout(() => firstInput.focus(), 50);
+}
+
+function closeBookingModal() {
+  if (!bookingModal) return;
+  bookingModal.hidden = true;
+  document.body.classList.remove('modal-open');
+  if (bookingTrigger && typeof bookingTrigger.focus === 'function') bookingTrigger.focus();
+}
+
+document.querySelectorAll('.js-book').forEach(el => {
+  el.addEventListener('click', (e) => {
+    e.preventDefault();
+    closeMobileMenu();
+    openBookingModal(el);
+  });
+});
+
+if (bookingModal) {
+  bookingModal.querySelectorAll('[data-close]').forEach(el => {
+    el.addEventListener('click', closeBookingModal);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !bookingModal.hidden) closeBookingModal();
+  });
+}
+
+if (bookingForm) {
+  bookingForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!validateForm(bookingForm)) return;
+    const submitBtn = bookingForm.querySelector('button[type="submit"]');
+    submitBtn.textContent = 'Opening calendar…';
+    submitBtn.disabled = true;
+    trackCtaClick('booking_modal_submit');
+    window.open(BOOKING_URL, '_blank', 'noopener');
+    closeBookingModal();
+    setTimeout(() => {
+      submitBtn.textContent = 'Continue to calendar →';
+      submitBtn.disabled = false;
+      bookingForm.reset();
+    }, 600);
+  });
+}
+
 // --- Init ---
 function init() {
   handleNavbarScroll();
@@ -279,10 +336,9 @@ document.addEventListener('DOMContentLoaded', init);
   if (!section || !tabs.length || !panels.length) return;
 
   function select(i) {
-    // Alternate the section between the two brand themes on each tab
-    const bright = i % 2 === 1;
-    section.classList.toggle("theme-bright", bright);
-    section.classList.toggle("theme-light", !bright);
+    // Keep the section on the light theme for every tab (no color flip)
+    section.classList.add("theme-light");
+    section.classList.remove("theme-bright");
 
     tabs.forEach(function (t, k) {
       const on = k === i;
@@ -399,4 +455,59 @@ document.addEventListener('DOMContentLoaded', init);
   }
 
   Array.prototype.slice.call(document.querySelectorAll("[data-globe]")).forEach(initGlobe);
+})();
+
+/* How We Work — one-card carousel (01 -> 02 -> 03, auto-advancing) */
+(function () {
+  const root = document.getElementById("how-steps");
+  if (!root) return;
+  const track = root.querySelector(".steps-track");
+  const slides = Array.prototype.slice.call(root.querySelectorAll(".step"));
+  const dots = Array.prototype.slice.call(root.querySelectorAll(".steps-dot"));
+  const prevBtn = root.querySelector("[data-step-prev]");
+  const nextBtn = root.querySelector("[data-step-next]");
+  if (!track || slides.length < 2) return;
+
+  const DWELL = 4500; // ms each card stays before auto-advancing
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let index = 0;
+  let timer = null;
+
+  function render() {
+    slides.forEach(function (s, i) {
+      s.classList.toggle("is-active", i === index);
+    });
+    dots.forEach(function (d, i) {
+      d.classList.toggle("is-active", i === index);
+      d.setAttribute("aria-selected", i === index ? "true" : "false");
+    });
+  }
+
+  function go(i) {
+    index = (i + slides.length) % slides.length;
+    render();
+  }
+
+  function start() {
+    if (reduce) return;
+    stop();
+    timer = setInterval(function () { go(index + 1); }, DWELL);
+  }
+  function stop() {
+    if (timer) { clearInterval(timer); timer = null; }
+  }
+
+  dots.forEach(function (d, i) {
+    d.addEventListener("click", function () { go(i); start(); });
+  });
+  if (prevBtn) prevBtn.addEventListener("click", function () { go(index - 1); start(); });
+  if (nextBtn) nextBtn.addEventListener("click", function () { go(index + 1); start(); });
+
+  root.addEventListener("mouseenter", stop);
+  root.addEventListener("mouseleave", start);
+  root.addEventListener("focusin", stop);
+  root.addEventListener("focusout", start);
+
+  render();
+  start();
 })();
