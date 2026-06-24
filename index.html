@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=12">
+  <link rel="stylesheet" href="css/styles.css?v=32">
 </head>
 <body>
 
@@ -303,11 +303,28 @@
         <p class="section-label">06 — AI &amp; Capacity</p>
         <h2>AI-capable, not buzzword.</h2>
         <p class="section-intro">Most shops list a few AI tools and call it a day. We bring our own AI engineering framework and a spec-driven approach to scoping and building.</p>
-        <div class="ai-tools">
-          <span>RAG</span><span>GPT-4</span><span>LLMs</span><span>LangChain</span><span>n8n</span>
+        <div class="model-grid">
+          <div class="model-card">
+            <span class="card-icon" aria-hidden="true">⬡</span>
+            <h3>Our own framework</h3>
+            <p>A spec-driven AI engineering approach to scoping and building — not a few tools bolted on as an afterthought.</p>
+          </div>
+          <div class="model-card">
+            <span class="card-icon" aria-hidden="true">◈</span>
+            <h3>Real LLM stack</h3>
+            <p>We build with RAG, GPT-4 and other LLMs, LangChain, and n8n — production AI, not demos.</p>
+          </div>
+          <div class="model-card">
+            <span class="card-icon" aria-hidden="true">◷</span>
+            <h3>AI-powered discovery</h3>
+            <p>We scope the work precisely with AI before a single line of code, so estimates hold up.</p>
+          </div>
+          <div class="model-card">
+            <span class="card-icon" aria-hidden="true">✦</span>
+            <h3>Fast prototyping</h3>
+            <p>Rapid AI prototyping for your product — validate ideas in days, not sprints.</p>
+          </div>
         </div>
-        <p class="ai-body">We build with RAG, GPT-4 and other LLMs, LangChain, and n8n, and run AI-powered discovery to scope work precisely before a line of code.</p>
-        <p class="ai-tagline">Fast AI prototyping for your product.</p>
       </div>
     </section>
 
@@ -343,9 +360,9 @@
     <!-- 5. PROOF / TRUST -->
     <section id="proof" class="section-proof">
       <div class="container">
-        <p class="section-label">05 — Proof</p>
-        <h2>Senior teams trust us with their builds.</h2>
-        <p class="section-intro">We can't show you their logos. The work — and the reviews — speak for themselves.</p>
+        <p class="section-label">08 — Proof</p>
+        <h2>Serious teams trust us with their builds.</h2>
+        <p class="section-intro">The work — and the reviews — speak for themselves: 5.0 across 8 verified reviews on Clutch, 100% willing to refer.</p>
 
         <div class="testimonials-carousel">
           <div class="carousel-track" id="testimonials-track">
@@ -376,154 +393,104 @@
           </div>
         </div>
 
-        <div class="proof-card">
-          <div class="proof-top">
-            <div class="clutch-stars" aria-label="5 star rating">★★★★★</div>
-            <div class="clutch-score">5.0</div>
-            <div class="clutch-meta">
-              <span>8 verified reviews</span>
-              <span class="sep">·</span>
-              <span>100% willing to refer</span>
+        <div class="proof-rating">
+          <div class="rating-orbit" role="img" aria-label="5.0 out of 5 stars">
+            <span class="rating-score">5.0</span>
+            <div class="rating-ring" aria-hidden="true">
+              <span class="rating-slot" style="--a:0deg"><span class="rating-star">★</span></span>
+              <span class="rating-slot" style="--a:72deg"><span class="rating-star">★</span></span>
+              <span class="rating-slot" style="--a:144deg"><span class="rating-star">★</span></span>
+              <span class="rating-slot" style="--a:216deg"><span class="rating-star">★</span></span>
+              <span class="rating-slot" style="--a:288deg"><span class="rating-star">★</span></span>
             </div>
           </div>
+          <p class="rating-meta">8 verified reviews · 100% willing to refer</p>
+
           <div class="proof-stats">
-            <div class="stat">
+            <div class="stat-card">
               <span class="stat-number">8/8</span>
               <span class="stat-label">Five-star reviews</span>
             </div>
-            <div class="stat">
+            <div class="stat-card">
               <span class="stat-number">5.0</span>
               <span class="stat-label">Quality score</span>
             </div>
-            <div class="stat">
+            <div class="stat-card">
               <span class="stat-number">5.0</span>
               <span class="stat-label">On-time score</span>
             </div>
-            <div class="stat">
+            <div class="stat-card">
               <span class="stat-number">6</span>
               <span class="stat-label">US states served</span>
             </div>
           </div>
+
           <a href="#" class="btn btn-secondary btn-sm proof-link" aria-label="Read ByteNana reviews on Clutch">View on Clutch →</a>
         </div>
 
       </div>
     </section>
 
-    <!-- 5b. WHAT WE'VE BUILT -->
-    <section id="work" class="section-cases">
+    <!-- 09 — PRICING -->
+    <section id="pricing" class="section-pricing">
       <div class="container">
-        <p class="section-label">Case Studies</p>
-        <h2>What we've built.</h2>
-        <p class="section-intro">Senior engineers, embedded in real product teams — here's what that looked like.</p>
-        <div class="pain-dial pain-dial--horizontal">
-          <div class="dial-track" role="tablist" aria-label="Case studies">
-            <span class="dial-thumb" aria-hidden="true"></span>
-            <button class="dial-step" type="button" role="tab"><span class="dial-num">01</span><span class="dial-label">Embedded into an existing product team</span></button>
-            <button class="dial-step" type="button" role="tab"><span class="dial-num">02</span><span class="dial-label">A modern frontend on an existing backend</span></button>
-            <button class="dial-step" type="button" role="tab"><span class="dial-num">03</span><span class="dial-label">A complex system from a rough requirement</span></button>
+        <p class="section-label">09 — Pricing</p>
+        <h2>Simple, honest pricing.</h2>
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <span class="case-icon case-icon--dev" aria-hidden="true"></span>
+            <p class="case-industry">Dedicated · Full-time</p>
+            <h3>Embedded Developer</h3>
+            <div class="case-body">
+              <div class="case-item">
+                <span class="case-label">What you get</span>
+                <p>One dedicated full-time engineer, 160 hrs/mo, architect-reviewed every sprint.</p>
+              </div>
+              <div class="case-item">
+                <span class="case-label">Price</span>
+                <p>From ~$5,120/mo (~$32/hr).</p>
+              </div>
+            </div>
           </div>
-          <div class="dial-cards">
-            <div class="dial-card" role="tabpanel">
-              <span class="case-icon case-icon--health" aria-hidden="true"></span>
-              <p class="case-industry">Healthcare-data software · US</p>
-              <h3>Embedded into an existing product team</h3>
-              <div class="case-body">
-                <div class="case-item">
-                  <span class="case-label">Challenge</span>
-                  <p>A software company needed to extend its own engineering team to ship Web GIS features and DevOps without slowing down.</p>
-                </div>
-                <div class="case-item">
-                  <span class="case-label">Solution</span>
-                  <p>We embedded senior engineers alongside their developers, ran sprint management, and scaled the team up and down as the roadmap shifted.</p>
-                </div>
-                <div class="case-item">
-                  <span class="case-label">Result</span>
-                  <p>Faster delivery on a complex, multi-part build, with capacity that flexed to demand.</p>
-                </div>
+          <div class="pricing-card">
+            <span class="case-icon case-icon--arch" aria-hidden="true"></span>
+            <p class="case-industry">Senior · Architect</p>
+            <h3>Senior / Architect Engineer</h3>
+            <div class="case-body">
+              <div class="case-item">
+                <span class="case-label">What you get</span>
+                <p>An architecture-capable senior engineer for complex builds, system design, and high-stakes work.</p>
+              </div>
+              <div class="case-item">
+                <span class="case-label">Price</span>
+                <p>$50–60/hr — versus the mid-$80s the big shops charge for the same calibre.</p>
               </div>
             </div>
-            <div class="dial-card" role="tabpanel">
-              <span class="case-icon case-icon--structure" aria-hidden="true"></span>
-              <p class="case-industry">Structural-health monitoring · US</p>
-              <h3>A modern frontend on an existing backend</h3>
-              <div class="case-body">
-                <div class="case-item">
-                  <span class="case-label">Challenge</span>
-                  <p>A working Python/Flask backend that needed a modern, high-performance frontend with real-time data visualization — without rebuilding what already worked.</p>
-                </div>
-                <div class="case-item">
-                  <span class="case-label">Solution</span>
-                  <p>We dropped into their existing stack and built the frontend and visualization layer on top of it, in their tools.</p>
-                </div>
-                <div class="case-item">
-                  <span class="case-label">Result</span>
-                  <p>Delivered on time and on budget, with zero disruption to the backend.</p>
-                </div>
+          </div>
+          <div class="pricing-card">
+            <span class="case-icon case-icon--flex" aria-hidden="true"></span>
+            <p class="case-industry">Engagement</p>
+            <h3>Flexible terms</h3>
+            <div class="case-body">
+              <div class="case-item">
+                <span class="case-label">Commitment</span>
+                <p>Month-to-month or committed — scale up or down as your roadmap shifts.</p>
               </div>
-            </div>
-            <div class="dial-card" role="tabpanel">
-              <span class="case-icon case-icon--agri" aria-hidden="true"></span>
-              <p class="case-industry">Agritech / remote sensing · US</p>
-              <h3>A complex system from a rough requirement</h3>
-              <div class="case-body">
-                <div class="case-item">
-                  <span class="case-label">Challenge</span>
-                  <p>A founder had a vision for a real-time crop-monitoring platform but no clear path to build it.</p>
-                </div>
-                <div class="case-item">
-                  <span class="case-label">Solution</span>
-                  <p>We translated the requirements into a cloud architecture and shipped a working system, built to extend as new capabilities were added.</p>
-                </div>
-                <div class="case-item">
-                  <span class="case-label">Result</span>
-                  <p>An operational platform a customer said they wished had existed decades earlier.</p>
-                </div>
+              <div class="case-item">
+                <span class="case-label">Models</span>
+                <p>Dedicated retainer, ad-hoc hourly, or fixed-price delivery.</p>
               </div>
             </div>
           </div>
         </div>
+        <p class="pricing-close">Boutique quality, without the enterprise markup — and no middleman inflating the rate.</p>
       </div>
     </section>
 
-    <!-- 6. WHY US -->
-    <section id="why-us" class="section-whyus">
-      <div class="container">
-        <p class="section-label">06 — Why Us</p>
-        <h2>Why agencies pick us over a body shop.</h2>
-        <div class="why-grid">
-          <div class="why-card">
-            <h3>Senior, not staffed-out</h3>
-            <p>A small team of senior engineers. Consultants first, developers second — we solve the business problem, not just close the ticket.</p>
-          </div>
-          <div class="why-card">
-            <h3>We work in your stack</h3>
-            <p>Your tools, your repo, your standards. Day one.</p>
-          </div>
-          <div class="why-card">
-            <h3>Real-time, not offshore</h3>
-            <p>Full US-hours overlap from Brazil. In your standup, not twelve hours behind it.</p>
-          </div>
-          <div class="why-card">
-            <h3>Invisible by design</h3>
-            <p>White-label, under your brand, every time.</p>
-          </div>
-          <div class="why-card">
-            <h3>AI-capable, not buzzword</h3>
-            <p>We build with RAG, GPT-4 and other LLMs, LangChain, and n8n, and run AI-powered discovery to scope work precisely before a line of code.</p>
-          </div>
-          <div class="why-card">
-            <h3>Verified, not self-proclaimed</h3>
-            <p>5.0 across 8 reviews on Clutch, 100% willing to refer.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 8. HOW WE WORK -->
+    <!-- 10. HOW WE WORK -->
     <section id="how-we-work" class="section-howwework">
       <div class="container">
-        <p class="section-label">08 — How We Work</p>
+        <p class="section-label">10 — How We Work</p>
         <h2>From first call to in your standup — in days.</h2>
         <p class="section-intro">A simple, transparent process. No black boxes.</p>
         <div class="steps">
@@ -561,14 +528,8 @@
             </div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- 9. FIT / OBJECTION HANDLING -->
-    <section id="fit" class="section-fit">
-      <div class="container">
-        <p class="section-label">09 — Fit</p>
-        <h2>Built to slot into how you already work.</h2>
+        <h3 class="howwework-fit-title">Built to slot into how you already work</h3>
         <div class="fit-grid">
           <div class="fit-card">
             <h3>NDA &amp; security by default</h3>
@@ -590,11 +551,39 @@
       </div>
     </section>
 
-    <!-- 10. FINAL CTA -->
+    <!-- 11. FINAL CTA -->
     <section id="cta" class="section-cta">
+      <div class="cta-hub" data-globe>
+        <canvas class="cta-hub__links" aria-hidden="true"></canvas>
+        <span class="hub-node hub-node--center" data-lon="0" data-lat="0"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:account"></iconify-icon></span></span></span></span>
+        <span class="hub-node" data-lon="-45" data-lat="35"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:chip"></iconify-icon></span></span></span></span>
+        <span class="hub-node" data-lon="40" data-lat="32"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:cloud-outline"></iconify-icon></span></span></span></span>
+        <span class="hub-node" data-lon="58" data-lat="-8"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:code-tags"></iconify-icon></span></span></span></span>
+        <span class="hub-node" data-lon="-58" data-lat="8"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:cellphone"></iconify-icon></span></span></span></span>
+        <span class="hub-node" data-lon="-18" data-lat="-42"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:database"></iconify-icon></span></span></span></span>
+        <span class="hub-node hub-node--sm" data-lon="-32" data-lat="66"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:robot-outline"></iconify-icon></span></span></span></span>
+        <span class="hub-node hub-node--sm" data-lon="78" data-lat="52"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:api"></iconify-icon></span></span></span></span>
+        <span class="hub-node hub-node--sm" data-lon="82" data-lat="-38"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:source-branch"></iconify-icon></span></span></span></span>
+        <span class="hub-node hub-node--sm" data-lon="-72" data-lat="-56"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:server"></iconify-icon></span></span></span></span>
+        <span class="hub-node hub-node--sm" data-lon="-95" data-lat="22"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:react"></iconify-icon></span></span></span></span>
+        <span class="hub-node hub-node--center" data-lon="140" data-lat="-5"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:account"></iconify-icon></span></span></span></span>
+        <span class="hub-node" data-lon="115" data-lat="25"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:docker"></iconify-icon></span></span></span></span>
+        <span class="hub-node" data-lon="165" data-lat="20"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:language-python"></iconify-icon></span></span></span></span>
+        <span class="hub-node" data-lon="120" data-lat="-35"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:nodejs"></iconify-icon></span></span></span></span>
+        <span class="hub-node" data-lon="170" data-lat="-30"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:kubernetes"></iconify-icon></span></span></span></span>
+        <span class="hub-node hub-node--sm" data-lon="150" data-lat="52"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:figma"></iconify-icon></span></span></span></span>
+        <span class="hub-node hub-node--sm" data-lon="-130" data-lat="-20"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:language-typescript"></iconify-icon></span></span></span></span>
+        <span class="hub-node hub-node--sm" data-lon="200" data-lat="10"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:github"></iconify-icon></span></span></span></span>
+        <span class="hub-node hub-node--sm" data-lon="230" data-lat="-40"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:angular"></iconify-icon></span></span></span></span>
+        <span class="hub-node hub-node--sm" data-lon="255" data-lat="35"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:graphql"></iconify-icon></span></span></span></span>
+        <span class="hub-node hub-node--sm" data-lon="290" data-lat="-12"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:redis"></iconify-icon></span></span></span></span>
+        <span class="hub-node hub-node--sm" data-lon="-150" data-lat="55"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:linux"></iconify-icon></span></span></span></span>
+        <span class="hub-node hub-node--sm" data-lon="30" data-lat="-62"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:firebase"></iconify-icon></span></span></span></span>
+        <span class="hub-node hub-node--sm" data-lon="95" data-lat="62"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:vuejs"></iconify-icon></span></span></span></span>
+      </div>
       <div class="container">
-        <p class="section-label">10 — CTA</p>
-        <h2>Need senior engineers in your stack next week?</h2>
+        <p class="section-label">11 — CTA</p>
+        <h2>Need top engineers in your stack next week?</h2>
         <p class="section-intro">Tell us what you're building. We'll match you with the right people — fast, and under your brand.</p>
         <form id="contact-form" class="contact-form" novalidate>
           <div class="form-group">
@@ -620,28 +609,19 @@
   <!-- FOOTER -->
   <footer id="footer">
     <div class="container footer-inner">
-      <p class="section-label">11 — Footer</p>
       <div class="footer-brand">
         <a href="#" class="logo" aria-label="ByteNana home">
+          <img src="assets/images/logo-Bn.svg" alt="" class="logo-mark">
           <span class="logo-byte">Byte</span><span class="logo-nana">Nana</span>
         </a>
-        <p>Senior nearshore engineering for US agencies.<br>In your stack, in your timezone, under your brand.</p>
+        <p>Boutique nearshore engineering for US agencies. In your stack, in your timezone, under your brand.</p>
       </div>
-      <nav class="footer-nav" aria-label="Footer navigation">
-        <a href="#how-we-work">How we work</a>
-        <a href="#proof">Reviews (Clutch)</a>
-        <a href="#">Portfolio</a>
-        <a href="#cta">Contact</a>
-      </nav>
-      <div class="footer-social">
-        <a href="#" aria-label="ByteNana on LinkedIn">LinkedIn</a>
-        <a href="mailto:hello@bytenana.tech">hello@bytenana.tech</a>
-      </div>
-      <p class="footer-legal">&copy; 2026 ByteNana. All rights reserved.</p>
+      <a class="footer-email" href="mailto:hello@bytenana.tech">hello@bytenana.tech</a>
     </div>
   </footer>
 
+  <script src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>
   <script src="js/hero-map.js?v=4" defer></script>
-  <script src="js/main.js?v=11"></script>
+  <script src="js/main.js?v=31"></script>
 </body>
 </html>

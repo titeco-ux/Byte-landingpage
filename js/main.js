@@ -313,3 +313,90 @@ document.addEventListener('DOMContentLoaded', init);
 
   select(0);
 })();
+
+/* Molecular networks wrapped on an invisible rotating globe (CTA + tech stack) */
+(function () {
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const D2R = Math.PI / 180;
+
+  // default bonds for the CTA hub (two people + tech clusters)
+  const CTA_EDGES = [
+    [0,1],[0,2],[0,3],[0,4],[1,2],[2,3],[3,5],[4,5],
+    [1,6],[2,7],[3,8],[5,9],[4,10],
+    [0,11],
+    [11,12],[11,13],[11,14],[11,15],[11,16],[12,13],[14,15],
+    [10,17],[4,17],[8,18],[13,18],[18,19],[19,20],[7,20],[3,20],
+    [5,21],[15,21],[9,22],[12,22],[21,22],[2,23],[5,23],[10,24],[1,24],[17,24]
+  ];
+
+  function initGlobe(hub) {
+    const canvas = hub.querySelector("canvas");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+
+    const nodes = Array.prototype.slice.call(hub.querySelectorAll(".hub-node")).map(function (el) {
+      return { el: el, lon: parseFloat(el.dataset.lon) * D2R, lat: parseFloat(el.dataset.lat) * D2R, sx: 0, sy: 0, z: 0 };
+    });
+    const edges = hub.dataset.edges
+      ? hub.dataset.edges.split(",").map(function (s) { return s.split("-").map(Number); })
+      : CTA_EDGES;
+    const bond = (getComputedStyle(hub).getPropertyValue("--bond").trim() || "242, 183, 5");
+    const spin = parseFloat(hub.dataset.spin || "0.00018");
+    const rFactor = parseFloat(hub.dataset.radius || "0.336");
+
+    let w = 0, h = 0, cx = 0, cy = 0, R = 0, pxr = 1;
+
+    function resize() {
+      pxr = Math.min(window.devicePixelRatio || 1, 2);
+      const rect = hub.getBoundingClientRect();
+      w = rect.width; h = rect.height;
+      if (!w || !h) return;
+      canvas.width = Math.round(w * pxr);
+      canvas.height = Math.round(h * pxr);
+      ctx.setTransform(pxr, 0, 0, pxr, 0, 0);
+      cx = w / 2; cy = h / 2;
+      R = Math.min(w, h) * rFactor;
+    }
+
+    function frame(t) {
+      const rot = t * spin;
+      for (let i = 0; i < nodes.length; i++) {
+        const n = nodes[i];
+        const theta = n.lon + rot;
+        const cosLat = Math.cos(n.lat);
+        const x = cosLat * Math.sin(theta);
+        const y = Math.sin(n.lat);
+        const z = cosLat * Math.cos(theta);
+        n.sx = cx + x * R;
+        n.sy = cy - y * R;
+        n.z = z;
+        const depth = (z + 1) / 2;
+        n.el.style.left = n.sx + "px";
+        n.el.style.top = n.sy + "px";
+        n.el.style.setProperty("--s", (0.5 + 0.6 * depth).toFixed(3));
+        n.el.style.opacity = (0.12 + 0.88 * depth).toFixed(3);
+        n.el.style.zIndex = String(Math.round(depth * 100));
+      }
+      ctx.clearRect(0, 0, w, h);
+      ctx.lineWidth = 1.2;
+      for (let e = 0; e < edges.length; e++) {
+        const a = nodes[edges[e][0]], b = nodes[edges[e][1]];
+        if (!a || !b) continue;
+        const vis = ((a.z + 1) / 2 + (b.z + 1) / 2) / 2;
+        ctx.beginPath();
+        ctx.moveTo(a.sx, a.sy);
+        ctx.lineTo(b.sx, b.sy);
+        ctx.strokeStyle = "rgba(" + bond + ", " + (0.06 + 0.34 * vis).toFixed(3) + ")";
+        ctx.stroke();
+      }
+      if (!reduce) requestAnimationFrame(frame);
+    }
+
+    resize();
+    window.addEventListener("resize", function () { resize(); if (reduce) frame(0); });
+    if (reduce) frame(0);
+    else requestAnimationFrame(frame);
+  }
+
+  Array.prototype.slice.call(document.querySelectorAll("[data-globe]")).forEach(initGlobe);
+})();
