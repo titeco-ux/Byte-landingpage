@@ -510,6 +510,25 @@ document.addEventListener('DOMContentLoaded', init);
     root.addEventListener("focusin", stop);
     root.addEventListener("focusout", start);
 
+    // Swipe / drag to move between cards (touch + mouse).
+    const swipeArea = root.querySelector(".steps-viewport") || root;
+    swipeArea.style.touchAction = "pan-y";   // let vertical scroll through, capture horizontal
+    let startX = 0, startY = 0, swiping = false;
+    swipeArea.addEventListener("pointerdown", function (e) {
+      startX = e.clientX; startY = e.clientY; swiping = true;
+      stop();
+    });
+    swipeArea.addEventListener("pointerup", function (e) {
+      if (!swiping) return;
+      swiping = false;
+      const dx = e.clientX - startX, dy = e.clientY - startY;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+        go(index + (dx < 0 ? 1 : -1));   // swipe left → next, right → previous
+      }
+      start();
+    });
+    swipeArea.addEventListener("pointercancel", function () { swiping = false; start(); });
+
     window.addEventListener("resize", lockHeight);
     window.addEventListener("load", lockHeight);   // re-measure once fonts settle
 
