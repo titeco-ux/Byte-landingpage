@@ -2153,7 +2153,7 @@ section {
   position: relative;
   width: 100%;
   min-width: 0;
-  min-height: 480px;
+  min-height: 340px;      /* mobile band; taller on desktop (see media query) */
   pointer-events: none;   /* only the nodes are interactive */
   animation: hub-pulse 6s ease-in-out infinite;
 }
@@ -2225,9 +2225,6 @@ section {
 @keyframes hub-breathe {
   0%, 100% { transform: scale(0.92); }
   50%      { transform: scale(1.08); }
-}
-@media (max-width: 768px) {
-  .cta-hub { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .hub-node__dot, .cta-hub { animation: none; }
@@ -2631,6 +2628,11 @@ section {
   .hero-globe { min-height: 440px; margin-top: 0; }
   .trust-strip { justify-content: flex-start; }
   .pain-close { text-align: left; }
+
+  /* CTA: two columns — animation on the left, form on the right */
+  .cta-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .cta-hub { order: 1; min-height: 520px; }
+  .cta-content { order: 2; }
 
   /* From tablet up, CTAs sit side-by-side at their natural width */
   .hero-ctas .btn {
