@@ -436,6 +436,11 @@ document.addEventListener('DOMContentLoaded', init);
 
     resize();
     window.addEventListener("resize", function () { resize(); if (reduce) frame(0); });
+    // Keep the canvas bitmap synced to its real displayed size (prevents stretching).
+    if (window.ResizeObserver) {
+      const ro = new ResizeObserver(function () { resize(); if (reduce) frame(0); });
+      ro.observe(hub);
+    }
     if (reduce) frame(0);
     else requestAnimationFrame(frame);
   }

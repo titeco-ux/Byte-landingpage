@@ -278,6 +278,14 @@
     resizeTimer = setTimeout(function () { layout(); if (reduce) render(0); }, 120);
   });
 
+  // Keep the canvas bitmap in sync with its actual displayed size. Without this,
+  // a container resize that doesn't fire window.resize leaves a stale bitmap that
+  // the browser stretches — squashing the globe into an oval in some browsers.
+  if (window.ResizeObserver) {
+    const ro = new ResizeObserver(function () { layout(); if (reduce) render(0); });
+    ro.observe(canvas);
+  }
+
   layout();
   fetch(GEO_URL)
     .then(function (r) { return r.json(); })
