@@ -21,19 +21,55 @@ function debounce(fn, delay) {
 }
 
 // --- Navbar scroll state ---
-function handleNavbarScroll() {
-  navbar.classList.toggle('scrolled', window.scrollY > SCROLL_THRESHOLD);
+const painSection = document.getElementById('pain');
+const navToggle   = document.getElementById('nav-toggle');
+
+function setNavExpanded(on) {
+  navbar.classList.toggle('expanded', on);
+  if (navToggle) navToggle.setAttribute('aria-expanded', String(on));
 }
+
+function handleNavbarScroll() {
+  const y = window.scrollY;
+  navbar.classList.toggle('scrolled', y > SCROLL_THRESHOLD);
+
+  // Retract into a compact pill once we reach section 2.
+  const collapsePoint = painSection ? painSection.offsetTop - 140 : Infinity;
+  const shouldCollapse = y >= collapsePoint;
+  navbar.classList.toggle('collapsed', shouldCollapse);
+  if (!shouldCollapse) setNavExpanded(false);   // back near the top: full bar
+}
+
+// Toggle icon opens / closes the collapsed bar (desktop).
+if (navToggle) {
+  navToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    setNavExpanded(!navbar.classList.contains('expanded'));
+  });
+}
+
+// A nav-link click, or a click anywhere outside, collapses the bar again.
+navbar.querySelectorAll('.nav-links a').forEach((a) => {
+  a.addEventListener('click', () => setNavExpanded(false));
+});
+document.addEventListener('click', (e) => {
+  if (navbar.contains(e.target)) return;
+  if (navbar.classList.contains('expanded')) setNavExpanded(false);
+  closeMobileMenu();
+});
 
 // --- Mobile menu ---
 function toggleMobileMenu() {
   const isOpen = mobileMenu.classList.toggle('open');
   menuToggle.setAttribute('aria-expanded', String(isOpen));
+  // While collapsed, expand the pill to full width so the dropdown spans it.
+  if (navbar.classList.contains('collapsed')) setNavExpanded(isOpen);
 }
 
 function closeMobileMenu() {
   mobileMenu.classList.remove('open');
   menuToggle.setAttribute('aria-expanded', 'false');
+  if (navbar.classList.contains('collapsed')) setNavExpanded(false);
 }
 
 // --- Step expand/collapse ---
@@ -121,6 +157,7 @@ function initSectionTracking() {
 
 // --- Event Listeners ---
 window.addEventListener('scroll', debounce(handleNavbarScroll, 10));
+window.addEventListener('resize', debounce(handleNavbarScroll, 50));
 
 menuToggle.addEventListener('click', toggleMobileMenu);
 
@@ -210,6 +247,7 @@ document.addEventListener('DOMContentLoaded', init);
   const list = document.querySelector(".rotator__list");
   if (!list) return;
 
+  const rotator = list.parentElement;   // .rotator (the clipping window)
   const items = list.children;          // 3 phrases + clone of phrase 1
   const HOLD  = 2200;                    // ms each phrase stays fully visible
   const SLIDE = 600;                     // ms slide duration
@@ -217,8 +255,24 @@ document.addEventListener('DOMContentLoaded', init);
 
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-  let step  = items[0].offsetHeight;     // one line in px = the slide distance
   let index = 0;
+  let step  = 0;
+
+  // Phrases may wrap to two lines, so give EVERY phrase the same height as the
+  // tallest one. That way exactly one phrase fills the window at a time (no two
+  // short phrases sharing the window), and the fixed height never reflows the
+  // page below it. step = that shared height = the slide distance.
+  function lockHeight() {
+    rotator.style.height = "auto";
+    for (let i = 0; i < items.length; i++) items[i].style.height = "auto";
+    let max = 0;
+    for (let i = 0; i < items.length; i++) max = Math.max(max, items[i].offsetHeight);
+    for (let i = 0; i < items.length; i++) items[i].style.height = max + "px";
+    rotator.style.height = max + "px";
+    step = max;
+  }
+
+  lockHeight();
 
   function advance() {
     index++;
@@ -235,97 +289,12 @@ document.addEventListener('DOMContentLoaded', init);
   }
 
   window.addEventListener("resize", function () {
-    step = items[0].offsetHeight;
     list.style.transition = "none";
+    lockHeight();                         // tallest phrase may change with width
     list.style.transform = "translateY(" + (-index * step) + "px)";
   });
 
   setInterval(advance, HOLD + SLIDE);
-})();
-
-/* Vertical dial — each notch reveals its card (section 2) */
-(function () {
-  const dials = document.querySelectorAll(".pain-dial");
-  if (!dials.length) return;
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const DWELL = 4000; // ms each card stays before auto-advancing
-
-  dials.forEach(function (dial) {
-    const steps = Array.prototype.slice.call(dial.querySelectorAll(".dial-step"));
-    const cards = Array.prototype.slice.call(dial.querySelectorAll(".dial-card"));
-    const thumb = dial.querySelector(".dial-thumb");
-    if (!steps.length || !cards.length) return;
-
-    let index = 0, timer = null;
-
-    const horizontal = dial.classList.contains("pain-dial--horizontal");
-    function moveThumb() {
-      const s = steps[index];
-      if (horizontal) {
-        thumb.style.width = s.offsetWidth + "px";
-        thumb.style.transform = "translateX(" + s.offsetLeft + "px)";
-      } else {
-        thumb.style.height = s.offsetHeight + "px";
-        thumb.style.transform = "translateY(" + s.offsetTop + "px)";
-      }
-    }
-    function select(i) {
-      index = i;
-      steps.forEach(function (s, k) { s.classList.toggle("is-active", k === i); s.setAttribute("aria-selected", k === i); });
-      cards.forEach(function (c, k) { c.classList.toggle("is-active", k === i); });
-      moveThumb();
-    }
-    function next() { select((index + 1) % steps.length); }
-    function play() { if (reduce) return; clearInterval(timer); timer = setInterval(next, DWELL); }
-    function stop() { clearInterval(timer); }
-
-    steps.forEach(function (s, k) {
-      s.addEventListener("click", function () { select(k); play(); });
-      s.addEventListener("mouseenter", function () { select(k); });
-    });
-    dial.addEventListener("mouseenter", stop);
-    dial.addEventListener("mouseleave", play);
-    window.addEventListener("resize", moveThumb);
-    window.addEventListener("load", moveThumb);
-
-    select(0);
-    play();
-  });
-})();
-
-/* Testimonials carousel (section 5) */
-(function () {
-  const track = document.getElementById("testimonials-track");
-  if (!track) return;
-  const carousel = track.closest(".testimonials-carousel");
-  const btns = carousel.querySelectorAll(".carousel-btn");
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let timer = null;
-
-  function step() {
-    const card = track.querySelector(".testimonial-card");
-    if (!card) return track.clientWidth;
-    const cs = getComputedStyle(track);
-    const gap = parseFloat(cs.columnGap || cs.gap) || 0;
-    return card.offsetWidth + gap;
-  }
-  function go(dir) {
-    const max = track.scrollWidth - track.clientWidth;
-    let target = track.scrollLeft + dir * step();
-    if (dir > 0 && track.scrollLeft >= max - 2) target = 0;   // loop to start
-    else if (dir < 0 && track.scrollLeft <= 2) target = max;  // loop to end
-    track.scrollTo({ left: target, behavior: "smooth" });
-  }
-  function play() { if (reduce) return; clearInterval(timer); timer = setInterval(function () { go(1); }, 5000); }
-  function stop() { clearInterval(timer); }
-
-  btns.forEach(function (b) {
-    b.addEventListener("click", function () { go(parseInt(b.getAttribute("data-dir"), 10)); play(); });
-  });
-  carousel.addEventListener("mouseenter", stop);
-  carousel.addEventListener("mouseleave", play);
-
-  play();
 })();
 
 /* Tech stack tabs — sliding panels + color invert per tab (section 5) */
@@ -457,57 +426,73 @@ document.addEventListener('DOMContentLoaded', init);
   Array.prototype.slice.call(document.querySelectorAll("[data-globe]")).forEach(initGlobe);
 })();
 
-/* How We Work — one-card carousel (01 -> 02 -> 03, auto-advancing) */
+/* One-card carousel with dot navigation — drives How We Work (section 10)
+   and the Pain carousel (section 02). Auto-advances and pauses on hover/focus. */
 (function () {
-  const root = document.getElementById("how-steps");
-  if (!root) return;
-  const track = root.querySelector(".steps-track");
-  const slides = Array.prototype.slice.call(root.querySelectorAll(".step"));
-  const dots = Array.prototype.slice.call(root.querySelectorAll(".steps-dot"));
-  const prevBtn = root.querySelector("[data-step-prev]");
-  const nextBtn = root.querySelector("[data-step-next]");
-  if (!track || slides.length < 2) return;
-
-  const DWELL = 4500; // ms each card stays before auto-advancing
+  const roots = Array.prototype.slice.call(document.querySelectorAll(".steps-carousel"));
+  if (!roots.length) return;
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let index = 0;
-  let timer = null;
 
-  function render() {
-    slides.forEach(function (s, i) {
-      s.classList.toggle("is-active", i === index);
-    });
+  roots.forEach(function (root) {
+    const track = root.querySelector(".steps-track");
+    const slides = Array.prototype.slice.call(root.querySelectorAll(".step"));
+    const dots = Array.prototype.slice.call(root.querySelectorAll(".steps-dot"));
+    const prevBtn = root.querySelector("[data-step-prev]");
+    const nextBtn = root.querySelector("[data-step-next]");
+    if (!track || slides.length < 2) return;
+
+    const DWELL = 4500; // ms each card stays before auto-advancing
+    let index = 0;
+    let timer = null;
+
+    // Cards are stacked, so the track only takes the active card's height.
+    // Lock it to the TALLEST card so switching cards never reflows the page.
+    function lockHeight() {
+      let max = 0;
+      slides.forEach(function (s) { max = Math.max(max, s.offsetHeight); });
+      if (max) track.style.minHeight = max + "px";
+    }
+
+    function render() {
+      slides.forEach(function (s, i) {
+        s.classList.toggle("is-active", i === index);
+      });
+      dots.forEach(function (d, i) {
+        d.classList.toggle("is-active", i === index);
+        d.setAttribute("aria-selected", i === index ? "true" : "false");
+      });
+    }
+
+    function go(i) {
+      index = (i + slides.length) % slides.length;
+      render();
+    }
+
+    function start() {
+      if (reduce) return;
+      stop();
+      timer = setInterval(function () { go(index + 1); }, DWELL);
+    }
+    function stop() {
+      if (timer) { clearInterval(timer); timer = null; }
+    }
+
     dots.forEach(function (d, i) {
-      d.classList.toggle("is-active", i === index);
-      d.setAttribute("aria-selected", i === index ? "true" : "false");
+      d.addEventListener("click", function () { go(i); start(); });
     });
-  }
+    if (prevBtn) prevBtn.addEventListener("click", function () { go(index - 1); start(); });
+    if (nextBtn) nextBtn.addEventListener("click", function () { go(index + 1); start(); });
 
-  function go(i) {
-    index = (i + slides.length) % slides.length;
+    root.addEventListener("mouseenter", stop);
+    root.addEventListener("mouseleave", start);
+    root.addEventListener("focusin", stop);
+    root.addEventListener("focusout", start);
+
+    window.addEventListener("resize", lockHeight);
+    window.addEventListener("load", lockHeight);   // re-measure once fonts settle
+
+    lockHeight();
     render();
-  }
-
-  function start() {
-    if (reduce) return;
-    stop();
-    timer = setInterval(function () { go(index + 1); }, DWELL);
-  }
-  function stop() {
-    if (timer) { clearInterval(timer); timer = null; }
-  }
-
-  dots.forEach(function (d, i) {
-    d.addEventListener("click", function () { go(i); start(); });
+    start();
   });
-  if (prevBtn) prevBtn.addEventListener("click", function () { go(index - 1); start(); });
-  if (nextBtn) nextBtn.addEventListener("click", function () { go(index + 1); start(); });
-
-  root.addEventListener("mouseenter", stop);
-  root.addEventListener("mouseleave", start);
-  root.addEventListener("focusin", stop);
-  root.addEventListener("focusout", start);
-
-  render();
-  start();
 })();

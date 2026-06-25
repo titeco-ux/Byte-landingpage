@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=50">
+  <link rel="stylesheet" href="css/styles.css?v=74">
 </head>
 <body>
 
@@ -30,6 +30,10 @@
       <button id="menu-toggle" class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
+      <button id="nav-toggle" class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+        <iconify-icon class="nav-toggle__open" icon="mdi:menu"></iconify-icon>
+        <iconify-icon class="nav-toggle__close" icon="mdi:close"></iconify-icon>
+      </button>
     </div>
     <nav id="mobile-menu" class="mobile-menu" aria-label="Mobile navigation">
       <ul>
@@ -45,31 +49,35 @@
 
     <!-- 1. HERO -->
     <section id="hero" class="section-hero">
-      <canvas class="hero-map" aria-hidden="true"></canvas>
-      <div class="container">
-        <p class="section-label">01 Hero</p>
-        <h1 class="hero-title">
-          <span class="hero-title__static">A boutique LATAM nearshore studio, white labeled</span>
-          <span class="rotator">
-            <span class="rotator__list">
-              <span class="rotator__item">who work inside your stack</span>
-              <span class="rotator__item">who work under your brand.</span>
-              <span class="rotator__item">who work under your timezone</span>
-              <span class="rotator__item" aria-hidden="true">who work inside your stack</span>
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <p class="section-label">01 Hero</p>
+          <h1 class="hero-title">
+            <span class="hero-title__static">A boutique LATAM nearshore studio, white labeled</span>
+            <span class="rotator">
+              <span class="rotator__list">
+                <span class="rotator__item">who work inside your stack</span>
+                <span class="rotator__item">who work under your brand.</span>
+                <span class="rotator__item">who work under your timezone</span>
+                <span class="rotator__item" aria-hidden="true">who work inside your stack</span>
+              </span>
             </span>
-          </span>
-        </h1>
-        <p class="hero-subhead">You won the pitch. We make sure you ship it: white-glove delivery in your repo and your standup, with your client none the wiser.</p>
-        <div class="hero-ctas">
-          <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1iDDrNFrD8QfgCNfShhvebpr0jzQH2of4gnWwSyvstKcQoJyuwdpNYy5Z7T0iWRsXAEd82kbHB" target="_blank" rel="noopener" class="btn btn-primary js-book">Book a discovery call</a>
-          <a href="#how-we-work" class="btn btn-secondary">See how we work ↓</a>
+          </h1>
+          <p class="hero-subhead">You won the pitch. We make sure you ship it: white-glove delivery in your repo and your standup, with your client none the wiser.</p>
+          <div class="hero-ctas">
+            <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1iDDrNFrD8QfgCNfShhvebpr0jzQH2of4gnWwSyvstKcQoJyuwdpNYy5Z7T0iWRsXAEd82kbHB" target="_blank" rel="noopener" class="btn btn-primary js-book">Book a discovery call</a>
+            <a href="#how-we-work" class="btn btn-secondary">See how we work ↓</a>
+          </div>
+          <div class="trust-strip">
+            <span>★ 5.0 on Clutch</span>
+            <span class="sep">·</span>
+            <span>Full EST overlap</span>
+            <span class="sep">·</span>
+            <span>Productive in week one</span>
+          </div>
         </div>
-        <div class="trust-strip">
-          <span>★ 5.0 on Clutch</span>
-          <span class="sep">·</span>
-          <span>Full EST overlap</span>
-          <span class="sep">·</span>
-          <span>Productive in week one</span>
+        <div class="hero-globe">
+          <canvas class="hero-map" aria-hidden="true"></canvas>
         </div>
       </div>
     </section>
@@ -80,40 +88,53 @@
         <p class="section-label">02 Pain</p>
         <h2>You won the work. Now you need the team to deliver it.</h2>
         <p class="section-intro">Agencies don't have an engineering problem, they have a <em>capacity</em> problem.</p>
-        <div class="pain-dial">
-          <div class="dial-track" role="tablist" aria-label="Capacity problems">
-            <span class="dial-thumb" aria-hidden="true"></span>
-            <button class="dial-step" type="button" role="tab"><span class="dial-num">01</span><span class="dial-label">No one free to build it</span></button>
-            <button class="dial-step" type="button" role="tab"><span class="dial-num">02</span><span class="dial-label">Deadlines won't wait</span></button>
-            <button class="dial-step" type="button" role="tab"><span class="dial-num">03</span><span class="dial-label">Productive on day one</span></button>
-            <button class="dial-step" type="button" role="tab"><span class="dial-num">04</span><span class="dial-label">Quiet, under your brand</span></button>
-            <button class="dial-step" type="button" role="tab"><span class="dial-num">05</span><span class="dial-label">Burned by offshore</span></button>
+        <div class="steps steps-carousel steps-carousel--slide" id="pain-steps">
+          <div class="steps-viewport">
+            <div class="steps-track">
+              <div class="step is-active">
+                <div class="step-content">
+                  <span class="card-icon" aria-hidden="true">⊘</span>
+                  <h3>No one free to build it</h3>
+                  <p>You closed the pitch, and now there's no senior engineer free to build it.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-content">
+                  <span class="card-icon" aria-hidden="true">◷</span>
+                  <h3>Deadlines won't wait</h3>
+                  <p>A client's deadline is locked, and hiring won't move fast enough to hit it.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-content">
+                  <span class="card-icon" aria-hidden="true">✦</span>
+                  <h3>Productive on day one</h3>
+                  <p>You need someone productive in your stack on day one, not a junior to manage into shape.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-content">
+                  <span class="card-icon" aria-hidden="true">◈</span>
+                  <h3>Quiet, under your brand</h3>
+                  <p>You need it done quietly, under your brand, with your client none the wiser.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-content">
+                  <span class="card-icon" aria-hidden="true">⊗</span>
+                  <h3>Burned by offshore</h3>
+                  <p>You've been burned by offshore: the timezone lag, the rework, the "cheap" that wasn't.</p>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="dial-cards">
-            <div class="dial-card" role="tabpanel">
-              <span class="card-icon" aria-hidden="true">⊘</span>
-              <h3>No one free to build it</h3>
-              <p>You closed the pitch, and now there's no senior engineer free to build it.</p>
-            </div>
-            <div class="dial-card" role="tabpanel">
-              <span class="card-icon" aria-hidden="true">◷</span>
-              <h3>Deadlines won't wait</h3>
-              <p>A client's deadline is locked, and hiring won't move fast enough to hit it.</p>
-            </div>
-            <div class="dial-card" role="tabpanel">
-              <span class="card-icon" aria-hidden="true">✦</span>
-              <h3>Productive on day one</h3>
-              <p>You need someone productive in your stack on day one, not a junior to manage into shape.</p>
-            </div>
-            <div class="dial-card" role="tabpanel">
-              <span class="card-icon" aria-hidden="true">◈</span>
-              <h3>Quiet, under your brand</h3>
-              <p>You need it done quietly, under your brand, with your client none the wiser.</p>
-            </div>
-            <div class="dial-card" role="tabpanel">
-              <span class="card-icon" aria-hidden="true">⊗</span>
-              <h3>Burned by offshore</h3>
-              <p>You've been burned by offshore: the timezone lag, the rework, the "cheap" that wasn't.</p>
+          <div class="steps-nav">
+            <div class="steps-dots" role="tablist" aria-label="Capacity problems">
+              <button class="steps-dot is-active" type="button" data-step="0" aria-label="Problem 1"></button>
+              <button class="steps-dot" type="button" data-step="1" aria-label="Problem 2"></button>
+              <button class="steps-dot" type="button" data-step="2" aria-label="Problem 3"></button>
+              <button class="steps-dot" type="button" data-step="3" aria-label="Problem 4"></button>
+              <button class="steps-dot" type="button" data-step="4" aria-label="Problem 5"></button>
             </div>
           </div>
         </div>
@@ -361,32 +382,46 @@
         <h2>Serious teams trust us with their builds.</h2>
         <p class="section-intro">The work, and the reviews, speak for themselves: 5.0 across 8 verified reviews on Clutch, 100% willing to refer.</p>
 
-        <div class="testimonials-carousel">
-          <div class="carousel-track" id="testimonials-track">
-            <blockquote class="testimonial-card">
-              <div class="testimonial-stars" aria-label="5 star rating">★★★★★</div>
-              <p>"We were impressed with their flexibility and skills."</p>
-              <footer>CEO, healthcare-data software company <span class="location">San Diego</span></footer>
-            </blockquote>
-            <blockquote class="testimonial-card">
-              <div class="testimonial-stars" aria-label="5 star rating">★★★★★</div>
-              <p>"They were enthusiastic and a good listener."</p>
-              <footer>Head of Business Development, structural-health-monitoring firm <span class="location">Illinois</span></footer>
-            </blockquote>
-            <blockquote class="testimonial-card">
-              <div class="testimonial-stars" aria-label="5 star rating">★★★★★</div>
-              <p>"I could say what I needed, and ByteNana turned it into code."</p>
-              <footer>CEO, agritech company <span class="location">Virginia</span></footer>
-            </blockquote>
-            <blockquote class="testimonial-card">
-              <div class="testimonial-stars" aria-label="5 star rating">★★★★★</div>
-              <p>"Extremely responsive and easy to speak with."</p>
-              <footer>CEO, electronic-monitoring firm <span class="location">North Dakota</span></footer>
-            </blockquote>
+        <div class="steps steps-carousel steps-carousel--slide" id="proof-steps">
+          <div class="steps-viewport">
+            <div class="steps-track">
+              <blockquote class="step is-active">
+                <div class="step-content">
+                  <div class="testimonial-stars" aria-label="5 star rating">★★★★★</div>
+                  <p>"We were impressed with their flexibility and skills."</p>
+                  <footer>CEO, healthcare-data software company <span class="location">San Diego</span></footer>
+                </div>
+              </blockquote>
+              <blockquote class="step">
+                <div class="step-content">
+                  <div class="testimonial-stars" aria-label="5 star rating">★★★★★</div>
+                  <p>"They were enthusiastic and a good listener."</p>
+                  <footer>Head of Business Development, structural-health-monitoring firm <span class="location">Illinois</span></footer>
+                </div>
+              </blockquote>
+              <blockquote class="step">
+                <div class="step-content">
+                  <div class="testimonial-stars" aria-label="5 star rating">★★★★★</div>
+                  <p>"I could say what I needed, and ByteNana turned it into code."</p>
+                  <footer>CEO, agritech company <span class="location">Virginia</span></footer>
+                </div>
+              </blockquote>
+              <blockquote class="step">
+                <div class="step-content">
+                  <div class="testimonial-stars" aria-label="5 star rating">★★★★★</div>
+                  <p>"Extremely responsive and easy to speak with."</p>
+                  <footer>CEO, electronic-monitoring firm <span class="location">North Dakota</span></footer>
+                </div>
+              </blockquote>
+            </div>
           </div>
-          <div class="carousel-controls">
-            <button class="carousel-btn" type="button" data-dir="-1" aria-label="Previous testimonial">‹</button>
-            <button class="carousel-btn" type="button" data-dir="1" aria-label="Next testimonial">›</button>
+          <div class="steps-nav">
+            <div class="steps-dots" role="tablist" aria-label="Testimonials">
+              <button class="steps-dot is-active" type="button" data-step="0" aria-label="Testimonial 1"></button>
+              <button class="steps-dot" type="button" data-step="1" aria-label="Testimonial 2"></button>
+              <button class="steps-dot" type="button" data-step="2" aria-label="Testimonial 3"></button>
+              <button class="steps-dot" type="button" data-step="3" aria-label="Testimonial 4"></button>
+            </div>
           </div>
         </div>
 
@@ -528,7 +563,8 @@
 
     <!-- 11. FINAL CTA -->
     <section id="cta" class="section-cta">
-      <div class="cta-hub" data-globe>
+      <div class="container cta-grid">
+        <div class="cta-hub" data-globe>
         <canvas class="cta-hub__links" aria-hidden="true"></canvas>
         <span class="hub-node hub-node--center" data-lon="0" data-lat="0"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:account"></iconify-icon></span></span></span></span>
         <span class="hub-node" data-lon="-45" data-lat="35"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:chip"></iconify-icon></span></span></span></span>
@@ -555,8 +591,8 @@
         <span class="hub-node hub-node--sm" data-lon="-150" data-lat="55"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:linux"></iconify-icon></span></span></span></span>
         <span class="hub-node hub-node--sm" data-lon="30" data-lat="-62"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:firebase"></iconify-icon></span></span></span></span>
         <span class="hub-node hub-node--sm" data-lon="95" data-lat="62"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:vuejs"></iconify-icon></span></span></span></span>
-      </div>
-      <div class="container">
+        </div>
+        <div class="cta-content">
         <p class="section-label">11 CTA</p>
         <h2>Need top engineers in your stack next week?</h2>
         <p class="section-intro">Tell us what you're building. We'll match you with the right people, fast, and under your brand.</p>
@@ -576,6 +612,7 @@
           <button type="submit" class="btn btn-primary btn-full">Book a discovery call</button>
           <p class="form-microcopy">By submitting, you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.</p>
         </form>
+        </div>
       </div>
     </section>
 
@@ -616,7 +653,7 @@
   </div>
 
   <script src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>
-  <script src="js/hero-map.js?v=7" defer></script>
-  <script src="js/main.js?v=36"></script>
+  <script src="js/hero-map.js?v=8" defer></script>
+  <script src="js/main.js?v=44"></script>
 </body>
 </html>

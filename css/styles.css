@@ -92,6 +92,7 @@ body {
   background-color: var(--color-bg);
   color: var(--color-text);
   line-height: 1.6;
+  overflow-x: hidden;   /* guard: the navbar slides off-screen left when collapsed */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -275,18 +276,85 @@ section {
 /* --- Navbar --- */
 #navbar {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: var(--space-4);
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - var(--space-8));
+  max-width: var(--container-max);
   z-index: 100;
   background-color: rgba(15, 17, 18, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--color-border);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);      /* matches cards/sections across the site */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+  transition: max-width 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              left 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              border-radius 0.5s ease,
+              opacity 0.4s ease,
+              background-color 0.25s ease, box-shadow 0.4s ease;
 }
 
 #navbar.scrolled {
   background-color: rgba(15, 17, 18, 0.97);
+}
+
+#navbar.collapsed {
+  left: var(--space-4);
+  transform: translateX(0);
+}
+/* Hide the horizontal desktop links until expanded */
+#navbar.collapsed:not(.expanded) .nav-links { display: none !important; }
+/* Collapsed: the WHOLE bar keeps its size and slides off-screen to the left,
+   leaving only the toggle icon visible as a tab at the edge. */
+#navbar.collapsed:not(.expanded) {
+  left: 0;
+  max-width: var(--container-max);                 /* keep full size — slide, don't compact */
+  transform: translateX(calc(-100% + 56px));        /* slide off, leave ~56px (the icon) */
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+  opacity: 0.85;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+/* Push the icon to the bar's right edge — the part that stays on screen */
+#navbar.collapsed:not(.expanded) .navbar-inner {
+  justify-content: flex-end;
+  padding-right: var(--space-3);
+}
+/* Only the menu icon shows in the tab — hide the logo */
+#navbar.collapsed:not(.expanded) .logo { display: none; }
+/* Expanding slides the full, centered bar back in */
+#navbar.collapsed.expanded {
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: var(--container-max);
+}
+
+/* Expand/collapse toggle icon — only visible while the bar is collapsed (desktop) */
+.nav-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: var(--color-text);
+  font-size: 22px;
+  cursor: pointer;
+  flex: 0 0 auto;
+  transition: color 0.2s ease;
+}
+.nav-toggle:hover { color: var(--color-primary); }
+.nav-toggle iconify-icon { display: none; line-height: 1; }
+#navbar.collapsed:not(.expanded) .nav-toggle__open { display: inline-block; }
+#navbar.collapsed.expanded .nav-toggle__close { display: inline-block; }
+
+@media (min-width: 768px) {
+  #navbar.collapsed .nav-toggle { display: inline-flex; }
+  #navbar.collapsed.expanded .nav-links { display: flex !important; }
 }
 
 .navbar-inner {
@@ -360,11 +428,17 @@ section {
   transition: all 0.2s ease;
 }
 
-/* Mobile menu */
+/* Mobile menu — detached dropdown below the floating pill */
 .mobile-menu {
   display: none;
+  position: absolute;
+  top: calc(100% + var(--space-2));
+  left: 0;
+  right: 0;
   background-color: var(--color-surface);
-  border-top: 1px solid var(--color-border);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
   padding: var(--space-4) var(--space-6) var(--space-6);
 }
 
@@ -410,35 +484,54 @@ section {
   border-bottom: 1px solid var(--color-border);
 }
 
-/* Animated Americas network background */
+/* Hero layout — mobile-first: text and globe stacked in a single column.
+   Splits into two side-by-side columns from the tablet breakpoint up
+   (see the min-width: 768px media query below). */
+.hero-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);  /* minmax(0,…) lets the track shrink below content size */
+  gap: 0;                  /* mobile: existing element margins handle the vertical rhythm */
+  align-items: center;
+}
+/* Mobile: dissolve .hero-content so its children become direct grid items.
+   That lets the globe slot in between the paragraph and the buttons via order. */
+.hero-content {
+  display: contents;
+}
+.hero-content > * {
+  max-width: 100%;
+}
+.section-label { order: 1; }
+.hero-title    { order: 2; }
+.hero-subhead  { order: 3; }
+.hero-globe    { order: 4; }
+.hero-ctas     { order: 5; }
+.trust-strip   { order: 6; }
+
+/* Animated Americas globe — lives inside its own container */
+.hero-globe {
+  position: relative;
+  width: 100%;
+  min-width: 0;            /* never let the canvas push the layout wider than the viewport */
+  max-width: 100%;
+  min-height: 280px;       /* compact band on phones */
+  margin-top: var(--space-8);  /* mobile: space above the globe, matching the CTA rhythm */
+  align-self: stretch;
+}
 .hero-map {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 0;
   pointer-events: none;
-}
-.section-hero .container {
-  position: relative;
-  z-index: 1;
-}
-.section-hero .container > * {
-  max-width: 500px;
-}
-
-/* On narrow screens, drop the globe into a band below the hero text */
-@media (max-width: 768px) {
-  .section-hero { padding-bottom: 340px; }
-  .hero-map {
-    top: auto;
-    bottom: 0;
-    height: 340px;
-  }
 }
 
 .section-hero h1 {
-  font-size: var(--text-3xl);
+  /* Fluid on phones so the no-wrap rotating line never overflows the viewport.
+     Overridden by fixed sizes at the 768px / 1024px breakpoints below. */
+  font-size: clamp(1.65rem, 7.15vw, 2.64rem);
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1.08;
@@ -450,18 +543,17 @@ section {
 .hero-title__static { display: block; }
 
 .rotator {
-  display: inline-block;
-  height: 1.08em;        /* matches the h1 line-height */
-  line-height: 1.08em;
+  display: block;
+  max-width: 100%;       /* phrases wrap when they reach the container width */
+  height: 1.08em;        /* JS animates this to each phrase's real height */
+  line-height: 1.08;
   overflow: hidden;
-  vertical-align: bottom;
   color: #F2B705;        /* brand color on the moving line */
 }
 .rotator__list { display: flex; flex-direction: column; }
 .rotator__item {
-  height: 1.08em;        /* must equal .rotator height */
-  line-height: 1.08em;
-  white-space: nowrap;
+  line-height: 1.08;
+  white-space: normal;   /* allow wrapping onto multiple lines */
 }
 
 .hero-subhead {
@@ -478,11 +570,19 @@ section {
   gap: var(--space-4);
   margin-top: var(--space-8);
 }
+/* Mobile-first: CTAs stack and fill the container width */
+.hero-ctas .btn {
+  flex: 1 1 100%;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+}
 
 .trust-strip {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;   /* mobile: center the trust items */
   gap: var(--space-2) var(--space-3);
   margin-top: var(--space-8);
   font-size: var(--text-sm);
@@ -625,6 +725,7 @@ section {
   font-weight: 700;
   color: var(--color-text) !important;
   letter-spacing: -0.01em;
+  text-align: center;   /* mobile: centered */
 }
 
 
@@ -686,7 +787,7 @@ section {
 
 /* Talent block merged into the Model section (left-aligned, spaced below the grid) */
 .section-model .talent-grid {
-  margin-top: var(--space-16);
+  margin-top: var(--space-32);
 }
 .section-model .talent-content h2,
 .section-model .talent-content .section-intro {
@@ -1702,7 +1803,7 @@ section {
 }
 /* How We Work block (merged into the Pricing section) — centered header */
 .howwework {
-  margin-top: var(--space-16);
+  margin-top: var(--space-32);
 }
 .howwework > .section-label,
 .howwework > h2,
@@ -1923,6 +2024,58 @@ section {
   background-color: var(--color-primary);
 }
 
+/* ---- Slide variant (section 02 Pain): same carousel + dots as section 10,
+        but a horizontal slide/fade instead of the 3D flip ---- */
+.steps-carousel--slide .steps-viewport { perspective: none; }
+.steps-carousel--slide .steps-track { transform-style: flat; }
+.steps-carousel--slide .step {
+  transform: translateX(28px);   /* slide in from the right, no rotateY */
+  box-shadow: var(--shadow-md);  /* keep the light card visible on the white section */
+}
+.steps-carousel--slide .step.is-active {
+  transform: translateX(0);
+}
+/* Section 02 cards alternate DARK and YELLOW (no light cards) */
+.steps-carousel--slide .step:nth-child(odd)  { background-color: var(--color-bg); }
+.steps-carousel--slide .step:nth-child(even) { background-color: var(--color-primary); }
+/* Dark cards: light text + yellow icon */
+.steps-carousel--slide .step:nth-child(odd) h3,
+.steps-carousel--slide .step:nth-child(odd) p { color: #FCFCFC; }
+.steps-carousel--slide .step:nth-child(odd) .card-icon { color: var(--color-primary); }
+/* Yellow cards: dark text + dark icon */
+.steps-carousel--slide .step:nth-child(even) h3,
+.steps-carousel--slide .step:nth-child(even) p { color: var(--color-bg); }
+.steps-carousel--slide .step:nth-child(even) .card-icon { color: var(--color-bg); }
+/* Dark dots read on the light Pain background */
+.steps-carousel--slide .steps-dot { background-color: rgba(15, 17, 18, 0.18); }
+.steps-carousel--slide .steps-dot.is-active { background-color: var(--color-primary); }
+/* Restore the breathing room the old components had above these dials */
+.steps-carousel--slide { margin-top: var(--space-10); }
+
+/* Section 08 Proof: testimonial content inside the slide dial */
+#proof-steps .testimonial-stars {
+  font-size: var(--text-lg);
+  letter-spacing: 2px;
+  line-height: 1;
+  margin-bottom: var(--space-4);
+}
+#proof-steps .step-content > p {
+  font-size: var(--text-xl);
+  font-style: italic;
+  line-height: 1.6;
+}
+#proof-steps .step-content footer {
+  margin-top: var(--space-4);
+  font-size: var(--text-sm);
+}
+#proof-steps .location { opacity: 0.8; }
+/* Dark cards: yellow stars, muted-light footer */
+#proof-steps .step:nth-child(odd) .testimonial-stars { color: var(--color-primary); }
+#proof-steps .step:nth-child(odd) footer { color: rgba(252, 252, 252, 0.7); }
+/* Yellow cards: dark stars + footer */
+#proof-steps .step:nth-child(even) .testimonial-stars { color: var(--color-bg); }
+#proof-steps .step:nth-child(even) footer { color: rgba(15, 17, 18, 0.75); }
+
 
 /* ==========================================================================
    SECTION — 9. FIT / OBJECTIONS
@@ -1969,24 +2122,34 @@ section {
   position: relative;
   overflow: hidden;
 }
-/* Left-side hub: a person with tech icons orbiting + connecting lines */
+/* CTA shares the section in two columns: tech-icon hub on the left, form on the right */
+.cta-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-10);
+  align-items: center;
+}
+.cta-content { min-width: 0; }
+/* Form fills its column and aligns with the heading above it */
+.cta-grid .contact-form {
+  margin-left: 0;
+  max-width: 560px;
+}
+
+/* Tech-icon hub — lives inside its own column (was a full-bleed background) */
 .cta-hub {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 55%;
-  height: 100%;
-  z-index: 2;
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  min-height: 480px;
   pointer-events: none;   /* only the nodes are interactive */
   animation: hub-pulse 6s ease-in-out infinite;
 }
 @keyframes hub-pulse {
   0%, 100% { transform: scale(1); }
   50%      { transform: scale(1.045); }
-}
-.section-cta .container {
-  position: relative;
-  z-index: 1;
 }
 /* connecting bonds (drawn on canvas, projected each frame) */
 .cta-hub__links {
@@ -2444,7 +2607,28 @@ section {
   h1 { font-size: var(--text-5xl); }
 
   .section-hero h1 {
-    font-size: var(--text-4xl);
+    font-size: calc(var(--text-5xl) * 1.1);
+  }
+
+  /* Hero becomes two columns: text left, globe right.
+     Restore .hero-content as a real column and drop the mobile ordering. */
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-10);
+  }
+  .hero-content { display: block; min-width: 0; }
+  .hero-content > *, .hero-globe { order: 0; }
+  .hero-globe { min-height: 440px; margin-top: 0; }
+  .trust-strip { justify-content: flex-start; }
+  .pain-close { text-align: left; }
+
+  /* CTA: hub left, form right */
+  .cta-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+
+  /* From tablet up, CTAs sit side-by-side at their natural width */
+  .hero-ctas .btn {
+    flex: 0 0 auto;
+    width: auto;
   }
 
   .menu-toggle { display: none; }
@@ -2469,8 +2653,10 @@ section {
 /* --- Desktop: 1024px --- */
 @media (min-width: 1024px) {
   h1            { font-size: var(--text-6xl); }
-  .section-hero h1 { font-size: var(--text-5xl); }
+  .section-hero h1 { font-size: calc(var(--text-6xl) * 1.1); }
   h2            { font-size: var(--text-4xl); }
+
+  .hero-globe { min-height: 520px; }
 
   .model-grid { grid-template-columns: repeat(4, 1fr); }
   .cases-grid { grid-template-columns: repeat(3, 1fr); }

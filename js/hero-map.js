@@ -90,14 +90,10 @@
     canvas.width = Math.round(w * pxr);
     canvas.height = Math.round(h * pxr);
     ctx.setTransform(pxr, 0, 0, pxr, 0, 0);
-    R = Math.min(h * 0.3174, w * 0.2484); // 50% smaller, then +20%
-    if (window.innerWidth <= 768) {     // mobile: globe centered in its band below the text
-      cx = w / 2;
-      cy = h * 0.5;
-    } else {                            // desktop: right-justified beside the text
-      cx = Math.max(R + 8, w - R - Math.max(16, w * 0.04));
-      cy = h * 0.52;
-    }
+    R = Math.min(h * 0.45, w * 0.45); // fit the globe within its own column
+    // Globe is centered inside its dedicated container on every breakpoint.
+    cx = w / 2;
+    cy = h * 0.5;
   }
 
   /* ---- drawing ---- */
