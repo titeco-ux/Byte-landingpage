@@ -1,6 +1,5 @@
 [build]
-  # Static site — no build step. Publish the repo root as-is.
-  # A real no-op command is required so this overrides the UI's "npm run build"
-  # (an empty string is treated as "unset" and Netlify falls back to the UI value).
-  publish = "."
-  command = "echo 'No build needed — static site'"
+  # Static site, no real build. The deploy step expects a "dist" directory,
+  # so assemble one by copying the static files into it.
+  publish = "dist"
+  command = "rm -rf dist && mkdir -p dist && cp -r index.html css js assets dist/"
