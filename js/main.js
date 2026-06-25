@@ -110,6 +110,16 @@ function validateForm(form) {
   return valid;
 }
 
+// POST form data to Netlify Forms (AJAX, url-encoded incl. the hidden form-name).
+function postToNetlify(form) {
+  const body = new URLSearchParams(new FormData(form)).toString();
+  return fetch('/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body,
+  });
+}
+
 function handleFormSubmit(e) {
   e.preventDefault();
   const form      = e.target;
@@ -120,11 +130,15 @@ function handleFormSubmit(e) {
   submitBtn.textContent = 'Sending…';
   submitBtn.disabled    = true;
 
-  // Replace with real endpoint: Formspree, HubSpot, Cal.com embed, etc.
-  setTimeout(() => {
-    submitBtn.textContent = 'Sent! We\'ll be in touch soon.';
-    form.reset();
-  }, 1200);
+  postToNetlify(form)
+    .then(() => {
+      submitBtn.textContent = 'Sent! We\'ll be in touch soon.';
+      form.reset();
+    })
+    .catch(() => {
+      submitBtn.textContent = 'Something went wrong — please try again';
+      submitBtn.disabled = false;
+    });
 }
 
 // --- GTM / tracking hooks (no-op stubs — replace with real calls) ---
@@ -224,13 +238,16 @@ if (bookingForm) {
     submitBtn.textContent = 'Opening calendar…';
     submitBtn.disabled = true;
     trackCtaClick('booking_modal_submit');
-    window.open(BOOKING_URL, '_blank', 'noopener');
-    closeBookingModal();
-    setTimeout(() => {
-      submitBtn.textContent = 'Continue to calendar →';
-      submitBtn.disabled = false;
-      bookingForm.reset();
-    }, 600);
+    // Capture the lead in Netlify (best-effort), then continue to the calendar.
+    postToNetlify(bookingForm).finally(() => {
+      window.open(BOOKING_URL, '_blank', 'noopener');
+      closeBookingModal();
+      setTimeout(() => {
+        submitBtn.textContent = 'Continue to calendar →';
+        submitBtn.disabled = false;
+        bookingForm.reset();
+      }, 600);
+    });
   });
 }
 

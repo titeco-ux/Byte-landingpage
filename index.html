@@ -596,7 +596,9 @@
         <p class="section-label">11 CTA</p>
         <h2>Need top engineers in your stack next week?</h2>
         <p class="section-intro">Tell us what you're building. We'll match you with the right people, fast, and under your brand.</p>
-        <form id="contact-form" class="contact-form" novalidate>
+        <form id="contact-form" class="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+          <input type="hidden" name="form-name" value="contact">
+          <p class="hidden" hidden><label>Don't fill this out: <input name="bot-field"></label></p>
           <div class="form-group">
             <label for="name">Name</label>
             <input type="text" id="name" name="name" placeholder="Your name" required autocomplete="name">
@@ -638,7 +640,9 @@
       <button class="booking-modal__close" type="button" aria-label="Close" data-close>&times;</button>
       <h3 id="booking-modal-title">Let's get you on the calendar</h3>
       <p class="booking-modal__intro">Drop your name and email and we'll take you straight to our booking calendar.</p>
-      <form id="booking-form" class="booking-form" novalidate>
+      <form id="booking-form" class="booking-form" name="booking" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+        <input type="hidden" name="form-name" value="booking">
+        <p class="hidden" hidden><label>Don't fill this out: <input name="bot-field"></label></p>
         <div class="form-group">
           <label for="book-name">Name</label>
           <input type="text" id="book-name" name="name" placeholder="Your name" required autocomplete="name">
@@ -654,6 +658,6 @@
 
   <script src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>
   <script src="js/hero-map.js?v=8" defer></script>
-  <script src="js/main.js?v=44"></script>
+  <script src="js/main.js?v=45"></script>
 </body>
 </html>
