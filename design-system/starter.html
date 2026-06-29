@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ByteNana Design System — Starter</title>
+  <meta name="description" content="Minimal page wiring up the ByteNana design system.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+
+  <!-- NAVBAR (floating pill → collapses to an edge tab on scroll) -->
+  <header id="navbar">
+    <div class="container navbar-inner">
+      <a href="#" class="logo" aria-label="Home">
+        <img src="assets/images/logo-Bn.svg" alt="" class="logo-mark">
+        <span class="logo-byte">Byte</span><span class="logo-nana">Nana</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <ul class="nav-links">
+          <li><a href="#cards">Cards</a></li>
+          <li><a href="#stack">Stack</a></li>
+          <li><a href="#" class="btn btn-primary btn-sm js-book">Book a call</a></li>
+        </ul>
+      </nav>
+      <button id="menu-toggle" class="menu-toggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      <button id="nav-toggle" class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+        <iconify-icon class="nav-toggle__open" icon="mdi:menu"></iconify-icon>
+        <iconify-icon class="nav-toggle__close" icon="mdi:close"></iconify-icon>
+      </button>
+    </div>
+    <nav id="mobile-menu" class="mobile-menu" aria-label="Mobile navigation">
+      <ul>
+        <li><a href="#cards">Cards</a></li>
+        <li><a href="#stack">Stack</a></li>
+        <li><a href="#" class="js-book">Book a call</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO with rotating headline -->
+    <section id="hero" style="padding-top: calc(var(--navbar-height) + var(--space-20));">
+      <div class="container">
+        <p class="eyebrow">Design system starter</p>
+        <h1>
+          A boutique studio,
+          <span class="rotator" style="display:block;height:1.1em;overflow:hidden;color:var(--color-primary)">
+            <span class="rotator__list" style="display:flex;flex-direction:column">
+              <span class="rotator__item">in your stack</span>
+              <span class="rotator__item">under your brand</span>
+              <span class="rotator__item">in your timezone</span>
+              <span class="rotator__item" aria-hidden="true">in your stack</span>
+            </span>
+          </span>
+        </h1>
+        <p class="section-intro">Edit <em>tokens.css</em> to rebrand everything below in one place.</p>
+        <div style="display:flex;gap:var(--space-4);margin-top:var(--space-8);flex-wrap:wrap">
+          <a href="#" class="btn btn-primary js-book">Book a call</a>
+          <a href="#cards" class="btn btn-secondary">See components ↓</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- INVERT-ON-HOVER CARD GRID on a mesh background -->
+    <section id="cards" class="section-mesh" data-nav-collapse-anchor>
+      <div class="container">
+        <p class="section-label">01 — Cards</p>
+        <h2>Hover a card to see the invert.</h2>
+        <div class="card-grid card-grid--2-4">
+          <div class="card card--invert"><span class="card-icon">⚙</span><h3>In your stack</h3><p>Immediate productivity from day one.</p></div>
+          <div class="card card--invert"><span class="card-icon">◷</span><h3>Real-time</h3><p>Full overlap with your working hours.</p></div>
+          <div class="card card--invert"><span class="card-icon">◈</span><h3>Under your brand</h3><p>White-label by default.</p></div>
+          <div class="card card--invert"><span class="card-icon">★</span><h3>Top talent</h3><p>Hand-picked, consultants first.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FULL-YELLOW INTERRUPT + redacted marquee -->
+    <section class="section--brand">
+      <div class="container">
+        <p class="section-label">02 — Interrupt</p>
+        <h2 style="max-width:600px">Notice there are no client logos?</h2>
+        <p style="max-width:660px">We work invisibly, under your brand.</p>
+      </div>
+      <div class="trust-marquee">
+        <div class="trust-track" aria-hidden="true">
+          <span class="trust-chip"><span class="trust-lock"></span><span class="trust-name">Northwind Labs</span></span>
+          <span class="trust-chip"><span class="trust-lock"></span><span class="trust-name">Halcyon Health</span></span>
+          <span class="trust-chip"><span class="trust-lock"></span><span class="trust-name">Atlas Fintech</span></span>
+          <span class="trust-chip"><span class="trust-lock"></span><span class="trust-name">Northwind Labs</span></span>
+          <span class="trust-chip"><span class="trust-lock"></span><span class="trust-name">Halcyon Health</span></span>
+          <span class="trust-chip"><span class="trust-lock"></span><span class="trust-name">Atlas Fintech</span></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- TABBED ORBIT -->
+    <section id="stack" class="section--light">
+      <div class="container" style="text-align:center">
+        <p class="section-label">03 — Tabbed orbit</p>
+        <h2>We already work in your stack.</h2>
+        <div class="stack-tabs" style="margin-top:var(--space-10)">
+          <div class="stack-tablist" role="tablist" aria-label="Categories">
+            <button class="stack-tab is-active" role="tab" aria-selected="true">Frontend</button>
+            <button class="stack-tab" role="tab" aria-selected="false">Backend</button>
+            <button class="stack-tab" role="tab" aria-selected="false">Cloud</button>
+          </div>
+          <div class="stack-panels">
+            <div class="stack-panel is-active" role="tabpanel">
+              <div class="stack-orbit"><div class="orbit__ring">
+                <span class="orbit__slot" style="--a:0deg"><span class="orbit__label">React</span></span>
+                <span class="orbit__slot" style="--a:90deg"><span class="orbit__label">Next.js</span></span>
+                <span class="orbit__slot" style="--a:180deg"><span class="orbit__label">TypeScript</span></span>
+                <span class="orbit__slot" style="--a:270deg"><span class="orbit__label">Vue</span></span>
+              </div></div>
+            </div>
+            <div class="stack-panel" role="tabpanel" hidden>
+              <div class="stack-orbit"><div class="orbit__ring">
+                <span class="orbit__slot" style="--a:0deg"><span class="orbit__label">Node.js</span></span>
+                <span class="orbit__slot" style="--a:120deg"><span class="orbit__label">Java</span></span>
+                <span class="orbit__slot" style="--a:240deg"><span class="orbit__label">Go</span></span>
+              </div></div>
+            </div>
+            <div class="stack-panel" role="tabpanel" hidden>
+              <div class="stack-orbit"><div class="orbit__ring">
+                <span class="orbit__slot" style="--a:0deg"><span class="orbit__label">AWS</span></span>
+                <span class="orbit__slot" style="--a:180deg"><span class="orbit__label">Docker</span></span>
+              </div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP CAROUSEL (slide variant) -->
+    <section class="section--light">
+      <div class="container">
+        <p class="section-label">04 — Carousel</p>
+        <h2>One card at a time.</h2>
+        <div class="steps steps-carousel steps-carousel--slide" id="demo-steps">
+          <div class="steps-viewport"><div class="steps-track">
+            <div class="step is-active"><div class="step-content"><span class="card-icon">⊘</span><h3>Problem one</h3><p>Auto-advances; pauses on hover; swipe on touch.</p></div></div>
+            <div class="step"><div class="step-content"><span class="card-icon">◷</span><h3>Problem two</h3><p>Dark and yellow cards alternate.</p></div></div>
+            <div class="step"><div class="step-content"><span class="card-icon">✦</span><h3>Problem three</h3><p>Heights auto-locked so the page never reflows.</p></div></div>
+          </div></div>
+          <div class="steps-nav"><div class="steps-dots" role="tablist">
+            <button class="steps-dot is-active" type="button" data-step="0" aria-label="1"></button>
+            <button class="steps-dot" type="button" data-step="1" aria-label="2"></button>
+            <button class="steps-dot" type="button" data-step="2" aria-label="3"></button>
+          </div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MOLECULAR GLOBE + FORM -->
+    <section class="section--light">
+      <div class="container" style="display:grid;gap:var(--space-10);grid-template-columns:1fr">
+        <div class="cta-hub" data-globe data-radius="0.36" style="--bond:15,17,18">
+          <canvas class="cta-hub__links" aria-hidden="true"></canvas>
+          <span class="hub-node hub-node--center" data-lon="0" data-lat="0"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:account"></iconify-icon></span></span></span></span>
+          <span class="hub-node" data-lon="-45" data-lat="35"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:chip"></iconify-icon></span></span></span></span>
+          <span class="hub-node" data-lon="40" data-lat="32"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:cloud-outline"></iconify-icon></span></span></span></span>
+          <span class="hub-node" data-lon="58" data-lat="-8"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:code-tags"></iconify-icon></span></span></span></span>
+          <span class="hub-node" data-lon="-58" data-lat="8"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:cellphone"></iconify-icon></span></span></span></span>
+          <span class="hub-node" data-lon="-18" data-lat="-42"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:database"></iconify-icon></span></span></span></span>
+        </div>
+        <div>
+          <p class="section-label">05 — Form</p>
+          <h2>Tell us what you're building.</h2>
+          <form id="contact-form" class="contact-form" name="contact" method="POST" data-netlify="true" novalidate>
+            <input type="hidden" name="form-name" value="contact">
+            <div class="form-group"><label for="name">Name</label><input id="name" name="name" placeholder="Your name" required></div>
+            <div class="form-group"><label for="email">Work email</label><input type="email" id="email" name="email" placeholder="you@agency.com" required></div>
+            <button type="submit" class="btn btn-primary btn-full">Send</button>
+            <p class="form-microcopy">By submitting you agree to our <a href="#">Terms</a>.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="#" class="logo"><img src="assets/images/logo-Bn.svg" alt="" class="logo-mark"><span class="logo-byte">Byte</span><span class="logo-nana">Nana</span></a>
+        <p>Design system starter. Replace this with your own brand.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Booking modal (gate → external calendar; set data-booking-url) -->
+  <div id="booking-modal" class="booking-modal" hidden data-booking-url="https://example.com/book">
+    <div class="booking-modal__backdrop" data-close></div>
+    <div class="booking-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="booking-modal-title">
+      <button class="booking-modal__close" type="button" aria-label="Close" data-close>&times;</button>
+      <h3 id="booking-modal-title">Let's get you on the calendar</h3>
+      <p class="booking-modal__intro">Drop your name and email and we'll take you to the calendar.</p>
+      <form id="booking-form" class="booking-form" name="booking" method="POST" data-netlify="true" novalidate>
+        <input type="hidden" name="form-name" value="booking">
+        <div class="form-group"><label for="book-name">Name</label><input id="book-name" name="name" placeholder="Your name" required></div>
+        <div class="form-group"><label for="book-email">Work email</label><input type="email" id="book-email" name="email" placeholder="you@agency.com" required></div>
+        <button type="submit" class="btn btn-primary btn-full">Continue to calendar →</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>
+  <script src="js/animations.js"></script>
+</body>
+</html>
