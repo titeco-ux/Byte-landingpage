@@ -537,3 +537,95 @@ document.addEventListener('DOMContentLoaded', init);
     start();
   });
 })();
+
+
+/* ---- Tech-stack molecular hubs [data-tech-hub] -------------------------- */
+/* Each hub auto-lays-out its .hub-node children: the .hub-node--center category
+   icon is pinned left, the tool icons fan out to the right in a gentle zig-zag,
+   drifting, joined by canvas bond lines. No coordinates needed. */
+(function () {
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var hubs = Array.prototype.slice.call(document.querySelectorAll("[data-tech-hub]"));
+  if (!hubs.length) return;
+
+  var BAND = 190;   // fixed vertical band so every hub is the same height
+
+  function initHub(hub) {
+    var canvas = hub.querySelector("canvas");
+    if (!canvas) return;
+    var ctx = canvas.getContext("2d");
+    var center = hub.querySelector(".hub-node--center");
+    var verts = Array.prototype.slice.call(hub.querySelectorAll(".hub-node")).filter(function (el) { return el !== center; });
+    var N = verts.length;
+    if (!N) return;
+
+    var bond = getComputedStyle(hub).getPropertyValue("--bond").trim() || "242, 183, 5";
+    var w = 0, h = 0, cy = 0, pxr = 1;
+    var base = [];
+    var EDG = [];
+
+    function layout() {
+      base.length = 0;
+      var padX = Math.min(w * 0.12, 56);
+      var left = padX, right = w - padX;
+      var amp = (Math.min(h, BAND) / 2) * 0.78;
+      base.push({ x: left, y: cy });               // category icon, far left
+      var gapStart = left + 78;
+      var span = Math.max(0, right - gapStart);
+      for (var i = 0; i < N; i++) {
+        var t = N === 1 ? 0.5 : i / (N - 1);
+        var x = N === 1 ? (gapStart + right) / 2 : gapStart + t * span;
+        var y = cy + (i % 2 === 0 ? -1 : 1) * amp;
+        base.push({ x: x, y: y });
+      }
+      EDG = [[0, 1]];
+      for (var j = 1; j < N; j++) EDG.push([j, j + 1]);
+      if (N >= 3) EDG.push([0, 2]);
+    }
+
+    function resize() {
+      pxr = Math.min(window.devicePixelRatio || 1, 2);
+      var rect = hub.getBoundingClientRect();
+      w = rect.width; h = rect.height;
+      if (!w || !h) return;
+      canvas.width = Math.round(w * pxr); canvas.height = Math.round(h * pxr);
+      ctx.setTransform(pxr, 0, 0, pxr, 0, 0);
+      cy = h / 2;
+      layout();
+    }
+
+    var pos = [];
+    function frame(t) {
+      if (w && h && base.length) {
+        for (var i = 0; i < base.length; i++) {
+          var ph = i * 1.7;
+          pos[i] = [base[i].x + Math.sin(t * 0.0009 + ph) * 5, base[i].y + Math.cos(t * 0.0011 + ph) * 6];
+        }
+        if (center) { center.style.left = pos[0][0] + "px"; center.style.top = pos[0][1] + "px"; center.style.zIndex = "60"; }
+        for (var k = 0; k < N; k++) {
+          var el = verts[k];
+          el.style.left = pos[k + 1][0] + "px";
+          el.style.top = pos[k + 1][1] + "px";
+          el.style.setProperty("--s", "1");
+          el.style.opacity = "1";
+        }
+        ctx.clearRect(0, 0, w, h);
+        ctx.lineWidth = 1.5; ctx.lineCap = "round"; ctx.setLineDash([]);
+        ctx.strokeStyle = "rgba(" + bond + ", 0.5)";
+        for (var e = 0; e < EDG.length; e++) {
+          var a = pos[EDG[e][0]], b = pos[EDG[e][1]];
+          if (!a || !b) continue;
+          ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
+        }
+      }
+      if (!reduce) requestAnimationFrame(frame);
+    }
+
+    resize();
+    window.addEventListener("resize", function () { resize(); if (reduce) frame(0); });
+    if (window.ResizeObserver) { var ro = new ResizeObserver(function () { resize(); if (reduce) frame(0); }); ro.observe(hub); }
+    if (reduce) { resize(); frame(0); } else requestAnimationFrame(frame);
+  }
+
+  hubs.forEach(initHub);
+})();

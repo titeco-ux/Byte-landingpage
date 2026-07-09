@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=76">
+  <link rel="stylesheet" href="css/styles.css?v=77">
 </head>
 <body>
 
@@ -267,98 +267,118 @@
 
     <!-- TECH STACK -->
     <section id="tech-stack" class="section-techstack theme-light">
-      <!-- flat icon sprite (brand-colored via currentColor) -->
-      <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-        <symbol id="ic-frontend" viewBox="0 0 24 24"><path d="M21 2H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7v2H8v2h8v-2h-2v-2h7c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H3V4h18v12z"/></symbol>
-        <symbol id="ic-backend" viewBox="0 0 24 24"><path d="M2 20h20v-4H2v4zm2-3h2v2H4v-2zM2 4v4h20V4H2zm4 3H4V5h2v2zm-4 7h20v-4H2v4zm2-3h2v2H4v-2z"/></symbol>
-        <symbol id="ic-data" viewBox="0 0 24 24"><path d="M4 9h4v11H4V9zm6-5h4v16h-4V4zm6 8h4v8h-4v-8z"/></symbol>
-        <symbol id="ic-cloud" viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></symbol>
-        <symbol id="ic-mobile" viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></symbol>
-        <symbol id="ic-ai" viewBox="0 0 24 24"><path d="M15 9H9v6h6V9zm-2 4h-2v-2h2v2zm8-2V9h-2V7c0-1.1-.9-2-2-2h-2V3h-2v2h-2V3H9v2H7c-1.1 0-2 .9-2 2v2H3v2h2v2H3v2h2v2c0 1.1.9 2 2 2h2v2h2v-2h2v2h2v-2h2c1.1 0 2-.9 2-2v-2h2v-2h-2v-2h2zm-4 6H7V7h10v10z"/></symbol>
-      </svg>
-
       <div class="container">
         <h2>We already work in your stack.</h2>
         <p class="section-intro">Whatever your team is building in, we've shipped in it.</p>
-        <div class="stack-tabs">
-          <div class="stack-tablist" role="tablist" aria-label="Tech stack categories">
-            <button class="stack-tab is-active" role="tab" aria-selected="true" id="tab-frontend" aria-controls="panel-frontend"><svg class="stack-tab__ic" aria-hidden="true"><use href="#ic-frontend"/></svg><span>Frontend</span></button>
-            <button class="stack-tab" role="tab" aria-selected="false" id="tab-backend" aria-controls="panel-backend"><svg class="stack-tab__ic" aria-hidden="true"><use href="#ic-backend"/></svg><span>Backend</span></button>
-            <button class="stack-tab" role="tab" aria-selected="false" id="tab-data" aria-controls="panel-data"><svg class="stack-tab__ic" aria-hidden="true"><use href="#ic-data"/></svg><span>Data &amp; ML</span></button>
-            <button class="stack-tab" role="tab" aria-selected="false" id="tab-cloud" aria-controls="panel-cloud"><svg class="stack-tab__ic" aria-hidden="true"><use href="#ic-cloud"/></svg><span>Cloud &amp; DevOps</span></button>
-            <button class="stack-tab" role="tab" aria-selected="false" id="tab-mobile" aria-controls="panel-mobile"><svg class="stack-tab__ic" aria-hidden="true"><use href="#ic-mobile"/></svg><span>Mobile</span></button>
-            <button class="stack-tab" role="tab" aria-selected="false" id="tab-ai" aria-controls="panel-ai"><svg class="stack-tab__ic" aria-hidden="true"><use href="#ic-ai"/></svg><span>AI</span></button>
-          </div>
 
-          <div class="stack-panels">
-            <div class="stack-panel is-active" role="tabpanel" id="panel-frontend" aria-labelledby="tab-frontend">
-              <div class="stack-orbit">
-                <svg class="stack-panel__ic" aria-hidden="true"><use href="#ic-frontend"/></svg>
-                <div class="orbit__ring">
-                  <span class="orbit__slot" style="--a:0deg"><span class="orbit__label">React</span></span>
-                  <span class="orbit__slot" style="--a:90deg"><span class="orbit__label">Next.js</span></span>
-                  <span class="orbit__slot" style="--a:180deg"><span class="orbit__label">JavaScript</span></span>
-                  <span class="orbit__slot" style="--a:270deg"><span class="orbit__label">TypeScript</span></span>
-                </div>
+        <div class="steps steps-carousel steps-carousel--slide steps-carousel--stack" id="stack-carousel">
+          <div class="steps-viewport"><div class="steps-track">
+
+            <div class="step is-active" role="group" aria-roledescription="slide" aria-label="Frontend">
+              <div class="stack-card__text">
+                <h3 class="stack-cat"><iconify-icon icon="mdi:application-brackets-outline" style="color:var(--color-primary)"></iconify-icon>Frontend</h3>
+                <p class="stack-desc">Fast, accessible interfaces in the frameworks your product already runs on.</p>
+                <ul class="tech-list"><li>React</li><li>Next.js</li><li>JavaScript</li><li>TypeScript</li></ul>
+              </div>
+              <div class="tech-hub cta-hub" data-tech-hub>
+                <canvas class="cta-hub__links" aria-hidden="true"></canvas>
+                <span class="hub-node hub-node--center"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:application-brackets-outline"></iconify-icon></span></span></span></span>
+                <span class="hub-node"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:react"></iconify-icon></span></span></span></span>
+                <span class="hub-node"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="simple-icons:nextdotjs"></iconify-icon></span></span></span></span>
+                <span class="hub-node"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:language-javascript"></iconify-icon></span></span></span></span>
+                <span class="hub-node"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:language-typescript"></iconify-icon></span></span></span></span>
               </div>
             </div>
-            <div class="stack-panel" role="tabpanel" id="panel-backend" aria-labelledby="tab-backend" hidden>
-              <div class="stack-orbit">
-                <svg class="stack-panel__ic" aria-hidden="true"><use href="#ic-backend"/></svg>
-                <div class="orbit__ring">
-                  <span class="orbit__slot" style="--a:0deg"><span class="orbit__label">Node.js</span></span>
-                  <span class="orbit__slot" style="--a:120deg"><span class="orbit__label">Java / Spring</span></span>
-                  <span class="orbit__slot" style="--a:240deg"><span class="orbit__label">Express</span></span>
-                </div>
+
+            <div class="step" role="group" aria-roledescription="slide" aria-label="Backend">
+              <div class="stack-card__text">
+                <h3 class="stack-cat"><iconify-icon icon="mdi:server-outline" style="color:var(--color-primary)"></iconify-icon>Backend</h3>
+                <p class="stack-desc">Robust APIs and services, built to scale and hand back cleanly.</p>
+                <ul class="tech-list"><li>Node.js</li><li>Java / Spring</li><li>Express</li></ul>
+              </div>
+              <div class="tech-hub cta-hub" data-tech-hub>
+                <canvas class="cta-hub__links" aria-hidden="true"></canvas>
+                <span class="hub-node hub-node--center"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:server-outline"></iconify-icon></span></span></span></span>
+                <span class="hub-node"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:nodejs"></iconify-icon></span></span></span></span>
+                <span class="hub-node"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="simple-icons:spring"></iconify-icon></span></span></span></span>
+                <span class="hub-node"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="simple-icons:express"></iconify-icon></span></span></span></span>
               </div>
             </div>
-            <div class="stack-panel" role="tabpanel" id="panel-data" aria-labelledby="tab-data" hidden>
-              <div class="stack-orbit">
-                <svg class="stack-panel__ic" aria-hidden="true"><use href="#ic-data"/></svg>
-                <div class="orbit__ring">
-                  <span class="orbit__slot" style="--a:0deg"><span class="orbit__label">Python</span></span>
-                  <span class="orbit__slot" style="--a:60deg"><span class="orbit__label">PostgreSQL</span></span>
-                  <span class="orbit__slot" style="--a:120deg"><span class="orbit__label">PostGIS</span></span>
-                  <span class="orbit__slot" style="--a:180deg"><span class="orbit__label">Spark</span></span>
-                  <span class="orbit__slot" style="--a:240deg"><span class="orbit__label">Airflow</span></span>
-                  <span class="orbit__slot" style="--a:300deg"><span class="orbit__label">Snowflake</span></span>
-                </div>
+
+            <div class="step" role="group" aria-roledescription="slide" aria-label="Data & ML">
+              <div class="stack-card__text">
+                <h3 class="stack-cat"><iconify-icon icon="mdi:database-outline" style="color:var(--color-primary)"></iconify-icon>Data &amp; ML</h3>
+                <p class="stack-desc">Pipelines, warehouses, and models that turn raw data into product.</p>
+                <ul class="tech-list"><li>Python</li><li>PostgreSQL</li><li>Spark</li><li>Airflow</li><li>Snowflake</li></ul>
+              </div>
+              <div class="tech-hub cta-hub" data-tech-hub>
+                <canvas class="cta-hub__links" aria-hidden="true"></canvas>
+                <span class="hub-node hub-node--center"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:database-outline"></iconify-icon></span></span></span></span>
+                <span class="hub-node"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:language-python"></iconify-icon></span></span></span></span>
+                <span class="hub-node"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="simple-icons:postgresql"></iconify-icon></span></span></span></span>
+                <span class="hub-node"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="simple-icons:apachespark"></iconify-icon></span></span></span></span>
+                <span class="hub-node"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="simple-icons:apacheairflow"></iconify-icon></span></span></span></span>
+                <span class="hub-node"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="simple-icons:snowflake"></iconify-icon></span></span></span></span>
               </div>
             </div>
-            <div class="stack-panel" role="tabpanel" id="panel-cloud" aria-labelledby="tab-cloud" hidden>
-              <div class="stack-orbit">
-                <svg class="stack-panel__ic" aria-hidden="true"><use href="#ic-cloud"/></svg>
-                <div class="orbit__ring">
-                  <span class="orbit__slot" style="--a:0deg"><span class="orbit__label">AWS</span></span>
-                  <span class="orbit__slot" style="--a:72deg"><span class="orbit__label">GCP</span></span>
-                  <span class="orbit__slot" style="--a:144deg"><span class="orbit__label">Azure</span></span>
-                  <span class="orbit__slot" style="--a:216deg"><span class="orbit__label">Docker</span></span>
-                  <span class="orbit__slot" style="--a:288deg"><span class="orbit__label">Kubernetes</span></span>
-                </div>
+
+            <div class="step" role="group" aria-roledescription="slide" aria-label="Cloud & DevOps">
+              <div class="stack-card__text">
+                <h3 class="stack-cat"><iconify-icon icon="mdi:cloud-outline" style="color:var(--color-primary)"></iconify-icon>Cloud &amp; DevOps</h3>
+                <p class="stack-desc">Ship and run it anywhere, with the pipelines and infra to keep it up.</p>
+                <ul class="tech-list"><li>AWS</li><li>GCP</li><li>Azure</li><li>Docker</li><li>Kubernetes</li></ul>
+              </div>
+              <div class="tech-hub cta-hub" data-tech-hub>
+                <canvas class="cta-hub__links" aria-hidden="true"></canvas>
+                <span class="hub-node hub-node--center"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:cloud-outline"></iconify-icon></span></span></span></span>
+                <span class="hub-node"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:aws"></iconify-icon></span></span></span></span>
+                <span class="hub-node"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:google-cloud"></iconify-icon></span></span></span></span>
+                <span class="hub-node"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:microsoft-azure"></iconify-icon></span></span></span></span>
+                <span class="hub-node"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:docker"></iconify-icon></span></span></span></span>
+                <span class="hub-node"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:kubernetes"></iconify-icon></span></span></span></span>
               </div>
             </div>
-            <div class="stack-panel" role="tabpanel" id="panel-mobile" aria-labelledby="tab-mobile" hidden>
-              <div class="stack-orbit">
-                <svg class="stack-panel__ic" aria-hidden="true"><use href="#ic-mobile"/></svg>
-                <div class="orbit__ring">
-                  <span class="orbit__slot" style="--a:0deg"><span class="orbit__label">Flutter</span></span>
-                  <span class="orbit__slot" style="--a:180deg"><span class="orbit__label">React Native</span></span>
-                </div>
+
+            <div class="step" role="group" aria-roledescription="slide" aria-label="Mobile">
+              <div class="stack-card__text">
+                <h3 class="stack-cat"><iconify-icon icon="mdi:cellphone" style="color:var(--color-primary)"></iconify-icon>Mobile</h3>
+                <p class="stack-desc">One codebase, both stores — native-quality apps your users trust.</p>
+                <ul class="tech-list"><li>Flutter</li><li>React Native</li></ul>
+              </div>
+              <div class="tech-hub cta-hub" data-tech-hub>
+                <canvas class="cta-hub__links" aria-hidden="true"></canvas>
+                <span class="hub-node hub-node--center"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:cellphone"></iconify-icon></span></span></span></span>
+                <span class="hub-node"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="simple-icons:flutter"></iconify-icon></span></span></span></span>
+                <span class="hub-node"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:react"></iconify-icon></span></span></span></span>
               </div>
             </div>
-            <div class="stack-panel" role="tabpanel" id="panel-ai" aria-labelledby="tab-ai" hidden>
-              <div class="stack-orbit">
-                <svg class="stack-panel__ic" aria-hidden="true"><use href="#ic-ai"/></svg>
-                <div class="orbit__ring">
-                  <span class="orbit__slot" style="--a:0deg"><span class="orbit__label">OpenAI / GPT-4</span></span>
-                  <span class="orbit__slot" style="--a:72deg"><span class="orbit__label">LangChain</span></span>
-                  <span class="orbit__slot" style="--a:144deg"><span class="orbit__label">RAG</span></span>
-                  <span class="orbit__slot" style="--a:216deg"><span class="orbit__label">Pinecone</span></span>
-                  <span class="orbit__slot" style="--a:288deg"><span class="orbit__label">n8n</span></span>
-                </div>
+
+            <div class="step" role="group" aria-roledescription="slide" aria-label="AI">
+              <div class="stack-card__text">
+                <h3 class="stack-cat"><iconify-icon icon="mdi:brain" style="color:var(--color-primary)"></iconify-icon>AI</h3>
+                <p class="stack-desc">Production-grade AI — RAG pipelines, LLM agents, and automation.</p>
+                <ul class="tech-list"><li>OpenAI / GPT-4</li><li>LangChain</li><li>RAG</li><li>Pinecone</li><li>n8n</li></ul>
+              </div>
+              <div class="tech-hub cta-hub" data-tech-hub>
+                <canvas class="cta-hub__links" aria-hidden="true"></canvas>
+                <span class="hub-node hub-node--center"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:brain"></iconify-icon></span></span></span></span>
+                <span class="hub-node"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="simple-icons:openai"></iconify-icon></span></span></span></span>
+                <span class="hub-node"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="simple-icons:langchain"></iconify-icon></span></span></span></span>
+                <span class="hub-node"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:database-search-outline"></iconify-icon></span></span></span></span>
+                <span class="hub-node"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="simple-icons:pinecone"></iconify-icon></span></span></span></span>
+                <span class="hub-node"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="simple-icons:n8n"></iconify-icon></span></span></span></span>
               </div>
             </div>
-          </div>
+
+          </div></div>
+          <div class="steps-nav"><div class="steps-dots" role="tablist" aria-label="Tech categories">
+            <button class="steps-dot is-active" type="button" data-step="0" aria-label="Frontend"></button>
+            <button class="steps-dot" type="button" data-step="1" aria-label="Backend"></button>
+            <button class="steps-dot" type="button" data-step="2" aria-label="Data & ML"></button>
+            <button class="steps-dot" type="button" data-step="3" aria-label="Cloud & DevOps"></button>
+            <button class="steps-dot" type="button" data-step="4" aria-label="Mobile"></button>
+            <button class="steps-dot" type="button" data-step="5" aria-label="AI"></button>
+          </div></div>
         </div>
       </div>
     </section>
@@ -700,6 +720,6 @@
 
   <script src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>
   <script src="js/hero-map.js?v=9" defer></script>
-  <script src="js/main.js?v=47"></script>
+  <script src="js/main.js?v=48"></script>
 </body>
 </html>
