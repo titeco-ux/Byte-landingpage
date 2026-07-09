@@ -144,7 +144,7 @@ The page alternates dark ↔ off-white ↔ yellow. Rather than per-section overr
 | **Buttons** | `.btn` + `.btn-primary` / `.btn-secondary`, mods `.btn-sm` `.btn-full` | Yellow fill / bordered ghost |
 | **Floating navbar** | `#navbar`, `.navbar-inner`, `.nav-links`, `.logo` | Centered pill that, on scroll, slides off-screen left into a ~56px edge tab; click toggle to re-expand |
 | **Mobile menu** | `.menu-toggle`, `.mobile-menu` | Detached dropdown under the pill |
-| **Card (base)** | `.card`, `.card-grid` (+ `--2-4` / `--3`) | Surface-2, border, radius-lg, border-on-hover |
+| **Card (base)** | `.card`, `.card-grid` (+ `--2-4` / `--3`) | `#161A1C` (`--color-surface` — all dark cards share this), border, radius-lg, border-on-hover |
 | **Invert-on-hover card** | `.card.card--invert` | Flips to solid yellow w/ dark content + lift. *Signature.* |
 | **Lift card** | `.card--lift` | Border + translateY on hover |
 | **Quote card** | `.card--quote` | Left yellow border, italic |
@@ -156,12 +156,114 @@ The page alternates dark ↔ off-white ↔ yellow. Rather than per-section overr
 | **Step carousel** | `.steps-carousel` (+ `--slide`) w/ `.steps-track`/`.step`/`.steps-dots`/`.steps-dot` | One card at a time; 3D-flip or horizontal-slide; auto-advance + swipe |
 | **Dial** | `.pain-dial` (+ `--horizontal`) w/ `.dial-track`/`.dial-step`/`.dial-thumb`/`.dial-card` | Clickable index reveals one card; sliding thumb |
 | **Pricing** | `.pricing-grid`/`.pricing-card` (+ `--featured`) | Featured middle card in yellow |
+| **Value / cost comparison** | `.section-value` > `.value-prices` (`.value-price` + `.value-price--win`) then `.value-strip` (`.value-item` w/ `__head`/`__sub` + `.value-strip__btn`) | Priced cards (one white card w/ drifting dot mesh as the winner) above a dark strip of benefit items + a yellow CTA. See §7.1 for markup. *Signature.* |
 | **Numbered steps** | `.steps`/`.step`/`.step-number` | Static big-number process list |
 | **Forms** | `.contact-form`/`.form-group`/`.form-microcopy` | Surface inputs, yellow focus ring |
 | **Molecular globe** | `.cta-hub[data-globe]` > `canvas.cta-hub__links` + `.hub-node[data-lon][data-lat]` | Icon nodes on an invisible spinning sphere, canvas bond lines |
+| **Tech-stack molecule** | `.steps-carousel--stack` slides, each w/ `.stack-card__text` (`.stack-cat` + `.stack-desc` + `.tech-list`) and `.tech-hub.cta-hub[data-tech-hub]` > `canvas.cta-hub__links` + `.hub-node`(`--center`) | Per-category slide: floating "molecule" of tech-logo nodes auto-laid-out (category icon left, tools fanned right), canvas bonds. No coordinates needed. See §7.2. *Signature.* |
 | **Hero globe** | `.hero-globe` > `canvas.hero-map` | See §8 |
 | **Booking modal** | `.booking-modal` + `.booking-form`; triggers use `.js-book` | Name/email gate → external calendar |
 | **Footer** | `#footer`/`.footer-inner`/`.footer-brand` | Light footer |
+
+### 7.1 Value / cost comparison section (copy-paste)
+Three priced cards (dark / white-highlight / dark) above a dark strip of benefit
+head+sub items and a yellow CTA. Icons via Iconify. The `--win` card is white with a
+drifting dot mesh; the other cards are `#161A1C`. Fully responsive (3-up ≥768px, stacked
+below; strip inline on desktop, stacked+centered on mobile) and honors reduced-motion.
+
+```html
+<section id="value" class="section-value">
+  <div class="container">
+    <h2 style="text-align:center;max-width:18ch;margin-inline:auto">Senior US calibre. Half the cost.</h2>
+    <p class="section-intro" style="text-align:center;max-width:56ch;margin-inline:auto">Same seniority, full US-hours overlap. You just stop paying for the overhead.</p>
+
+    <div class="value-prices">
+      <div class="card value-price">
+        <span class="card-icon" aria-hidden="true"><iconify-icon icon="mdi:office-building-outline"></iconify-icon></span>
+        <h3 class="value-price__title">US senior hire</h3>
+        <p class="value-price__amount">~$195k<span>/yr</span></p>
+        <p class="value-price__note">salary + benefits + tax + recruiter</p>
+      </div>
+      <div class="card value-price value-price--win">
+        <span class="card-icon" aria-hidden="true"><iconify-icon icon="mdi:rocket-launch-outline"></iconify-icon></span>
+        <h3 class="value-price__title">ByteNana senior</h3>
+        <p class="value-price__amount">~$100k<span>/yr</span></p>
+        <p class="value-price__note">$50–60/hr · architect-reviewed</p>
+      </div>
+      <div class="card value-price">
+        <span class="card-icon" aria-hidden="true"><iconify-icon icon="mdi:cash-multiple"></iconify-icon></span>
+        <h3 class="value-price__title">Same team. Half the cost.</h3>
+        <p class="value-price__amount">~$90k<span> saved</span></p>
+        <p class="value-price__note">per engineer, per year.</p>
+      </div>
+    </div>
+
+    <div class="value-strip">
+      <div class="value-item">
+        <p class="value-item__head">No US overhead</p>
+        <p class="value-item__sub">Pay for engineering, not benefits and a recruiter's cut.</p>
+      </div>
+      <div class="value-item">
+        <p class="value-item__head">Cheaper, not cheap</p>
+        <p class="value-item__sub">Same vetting bar. The savings are geography, not a lower standard.</p>
+      </div>
+      <a href="#book" class="btn value-strip__btn js-book">Book a call →</a>
+    </div>
+  </div>
+</section>
+```
+
+### 7.2 Tech-stack molecular hub (recipe)
+A carousel where each slide is a tech category: on the left a title + short blurb +
+pill chips, on the right a floating **"molecule"** — the category icon fixed at left with
+the tool logos fanned out to the right, gently drifting, joined by canvas bond lines.
+
+**How it works**
+- `[data-tech-hub]` (module in `animations.js`) reads a hub's `.hub-node` children and
+  **auto-positions** them — `.hub-node--center` is the category icon (pinned left); the rest
+  fan right in a zig-zag. **No `data-lon`/`data-lat` needed** (that's only the sphere globe).
+- Wrap the whole thing in `.section--light`: the stack cards stay dark (`#161A1C`), and the
+  `.section--light .steps-carousel--stack` overrides restore the yellow bonds + dark node chips.
+- The base `.steps-carousel` JS handles slide/swipe/auto-advance/dots (one dot per slide).
+- Optional per hub: `style="--bond: 242,183,5"` sets the bond-line RGB.
+- Requires the Iconify script. Uses `simple-icons:*` for brand logos, `mdi:*` for generic.
+
+**To add a category:** copy one `.step`, change the title/blurb/chips, swap the center icon,
+and list one `.hub-node` per tool. Add a matching `.steps-dot`.
+
+```html
+<section id="tech-stack" class="section-techstack section--light">
+  <div class="container">
+    <h2>Our tech stack</h2>
+    <div class="steps steps-carousel steps-carousel--slide steps-carousel--stack" id="stack-carousel">
+      <div class="steps-viewport"><div class="steps-track">
+
+        <div class="step is-active" role="group" aria-roledescription="slide" aria-label="AI">
+          <div class="stack-card__text">
+            <h3 class="stack-cat"><iconify-icon icon="mdi:brain" style="color:var(--color-primary)"></iconify-icon>AI</h3>
+            <p class="stack-desc">Production-grade AI — RAG pipelines, LLM agents, and automation.</p>
+            <ul class="tech-list"><li>OpenAI / GPT-4</li><li>LangChain</li><li>RAG</li><li>n8n</li></ul>
+          </div>
+          <div class="tech-hub cta-hub" data-tech-hub>
+            <canvas class="cta-hub__links" aria-hidden="true"></canvas>
+            <span class="hub-node hub-node--center"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="mdi:brain"></iconify-icon></span></span></span></span>
+            <span class="hub-node"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="simple-icons:openai"></iconify-icon></span></span></span></span>
+            <span class="hub-node"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="simple-icons:langchain"></iconify-icon></span></span></span></span>
+            <span class="hub-node"><span class="hub-node__depth"><span class="hub-node__hover"><span class="hub-node__dot"><iconify-icon icon="simple-icons:n8n"></iconify-icon></span></span></span></span>
+          </div>
+        </div>
+
+        <!-- duplicate .step (without is-active) per category: Frontend, Backend, Data, Cloud, Mobile … -->
+
+      </div></div>
+      <div class="steps-nav"><div class="steps-dots" role="tablist" aria-label="Tech categories">
+        <button class="steps-dot is-active" type="button" data-step="0" aria-label="AI"></button>
+        <!-- one .steps-dot per slide -->
+      </div></div>
+    </div>
+  </div>
+</section>
+```
 
 ### Line-icon helper
 `.case-icon` paints any inline-SVG via CSS mask. Set `--icon` to a `url("data:image/svg+xml,...")`:

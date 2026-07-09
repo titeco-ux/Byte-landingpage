@@ -211,7 +211,7 @@
    4. CARDS — one base, several variants
    ========================================================================== */
 .card {
-  background-color: var(--color-surface-2);
+  background-color: var(--color-surface);   /* #161A1C — all dark cards share this */
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: var(--space-6) var(--space-8);
@@ -749,4 +749,129 @@ body.modal-open { overflow: hidden; }
 @media (min-width: 1024px) {
   .card-grid--2-4 { grid-template-columns: repeat(4, 1fr); }
   .card-grid--3   { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ==========================================================================
+   VALUE / PRICING COMPARISON — priced cards (one highlighted white card with a
+   drifting dot mesh) above a dark strip of benefit head/sub items + a CTA.
+   Markup: .section-value > .container > (h2, .section-intro, .value-prices, .value-strip)
+   ========================================================================== */
+.section-value h2 { margin-top: var(--space-2); }
+.section-value .section-intro { margin-top: var(--space-4); margin-bottom: var(--space-12); }
+
+/* Price cards, side by side — larger, with an icon + title */
+.value-prices {
+  display: grid; grid-template-columns: 1fr; gap: var(--space-6);
+  max-width: 1040px; margin: 0 auto var(--space-8);
+}
+.value-price { text-align: center; padding: var(--space-10) var(--space-8); }
+.value-price .card-icon { margin: 0 auto var(--space-4); font-size: 2.4rem; }
+.value-price__title {
+  font-family: var(--font-heading); font-weight: 700; font-size: var(--text-lg);
+  color: var(--color-text); margin-bottom: var(--space-3);
+}
+.value-price__amount {
+  font-family: var(--font-heading); font-weight: 800; letter-spacing: -0.03em;
+  font-size: clamp(2.6rem, 7vw, 3.6rem); line-height: 1; color: var(--color-text);
+}
+.value-price__amount span { font-size: var(--text-base); font-weight: 600; letter-spacing: 0; color: var(--color-text-muted); margin-left: var(--space-1); }
+.value-price__note { margin-top: var(--space-4); font-size: var(--text-sm); color: var(--color-text-muted); }
+
+/* Highlighted card: white background with a subtle drifting dotted mesh, dark text */
+.value-price--win {
+  background-color: #FCFCFC; border-color: #FCFCFC;
+  background-image:
+    radial-gradient(circle, rgba(15, 17, 18, 0.08) 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(15, 17, 18, 0.08) 1px, transparent 1.5px);
+  background-size: 22px 22px, 22px 22px;
+  background-position: 0 0, 11px 11px;
+  animation: value-mesh-drift 12.6s ease-in-out infinite;
+  will-change: background-position;
+}
+@keyframes value-mesh-drift {
+  0%, 100% { background-position: 0 0, 11px 11px; }
+  50%      { background-position: 14px -12px, 25px -1px; }
+}
+.value-price--win .value-price__title,
+.value-price--win .value-price__amount { color: var(--on-light-text); }
+.value-price--win .value-price__amount span,
+.value-price--win .value-price__note { color: var(--on-light-muted); }
+
+/* Dark strip below the cards: inline on desktop, stacked + centered on mobile */
+.value-strip {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+  gap: var(--space-6) var(--space-8);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  max-width: 1040px; margin: 0 auto;
+}
+.value-strip .value-item { flex: 1 1 190px; min-width: 0; text-align: left; }
+.value-item__head { font-family: var(--font-heading); font-weight: 800; letter-spacing: -0.02em; font-size: var(--text-lg); color: var(--color-text); }
+.value-item__sub { margin-top: var(--space-2); font-size: var(--text-sm); line-height: 1.5; color: var(--color-text-muted); }
+/* yellow CTA so it pops against the dark strip */
+.value-strip__btn { flex: 0 0 auto; background-color: var(--color-primary); color: var(--color-bg); border-color: var(--color-primary); }
+.value-strip__btn:hover { background-color: var(--color-primary-dark); border-color: var(--color-primary-dark); }
+
+@media (min-width: 768px) {
+  .value-prices { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 640px) {
+  .value-strip { flex-direction: column; align-items: center; text-align: center; gap: var(--space-6); }
+  .value-strip .value-item { flex: none; text-align: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .value-price--win { animation: none; }
+}
+
+/* ==========================================================================
+   TECH-STACK MOLECULAR HUBS  [data-tech-hub]
+   A .steps-carousel--stack whose slides each hold a category (icon + chips)
+   and a .tech-hub .cta-hub[data-tech-hub] "molecule": the category icon sits
+   left, the tech-logo nodes fan out to the right, gently floating, joined by
+   canvas bond lines. Each hub auto-lays-out from its .hub-node children — no
+   coordinates needed. Driven by the [data-tech-hub] module in animations.js.
+   ========================================================================== */
+.tech-hub { width: 100%; max-width: 462px; min-height: 374px; }
+.tech-list { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-2) var(--space-3); margin: 0; padding: 0; list-style: none; }
+.tech-list li {
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid rgba(15, 17, 18, 0.18); border-radius: 999px;
+  background-color: rgba(252, 252, 252, 0.7); color: var(--on-light-text);
+  font-family: var(--font-heading); font-weight: 600; font-size: var(--text-sm);
+}
+@keyframes tech-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+/* STACK carousel variant — every card the same dark surface so the yellow
+   molecule always reads; card holds a category title, chips, then the hub. */
+.steps-carousel--stack .step,
+.steps-carousel--stack .step:nth-child(odd),
+.steps-carousel--stack .step:nth-child(even) { background-color: var(--color-surface); }
+.steps-carousel--stack .step { align-items: center; text-align: center; gap: var(--space-6); }
+.steps-carousel--stack .step h3,
+.steps-carousel--stack .step:nth-child(odd) h3,
+.steps-carousel--stack .step:nth-child(even) h3 { color: #F1F1F1; }
+.steps-carousel--stack .stack-card__text { display: flex; flex-direction: column; align-items: center; gap: var(--space-4); width: 100%; }
+.steps-carousel--stack .stack-cat { display: inline-flex; align-items: center; gap: var(--space-3); font-size: var(--text-xl); }
+.steps-carousel--stack .stack-cat__ic { width: 1.3em; height: 1.3em; fill: var(--color-primary); flex: 0 0 auto; }
+.steps-carousel--stack .stack-desc { margin: 0; font-size: var(--text-sm); line-height: 1.6; max-width: 42ch; }
+.steps-carousel--stack .step .stack-desc,
+.steps-carousel--stack .step:nth-child(odd) .stack-desc,
+.steps-carousel--stack .step:nth-child(even) .stack-desc { color: #F1F1F1; }
+.steps-carousel--stack .tech-list { margin: 0; order: 0; }
+.steps-carousel--stack .tech-list li { border-radius: var(--radius-lg); background-color: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.12); color: #F1F1F1; }
+.steps-carousel--stack .tech-hub { width: 100%; max-width: none; min-height: 240px; }
+/* hub sits on a dark card even inside a light section: restore dark bonds/nodes */
+.section--light .steps-carousel--stack .cta-hub { --bond: 242, 183, 5; }
+.section--light .steps-carousel--stack .hub-node__dot { color: var(--color-primary); background: var(--color-bg); border-color: rgba(242, 183, 5, 0.45); }
+.section--light .steps-carousel--stack .hub-node:hover .hub-node__dot { border-color: var(--color-primary); background: rgba(242, 183, 5, 0.12); }
+.steps-carousel--stack .step.is-active .tech-hub { animation: tech-pulse 6s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .steps-carousel--stack .step.is-active .tech-hub { animation: none; } }
+@media (min-width: 768px) {
+  .steps-carousel--stack .step { flex-direction: row; align-items: center; text-align: left; gap: var(--space-10); }
+  .steps-carousel--stack .stack-card__text { flex: 0 0 auto; width: auto; align-items: flex-start; align-self: flex-start; }
+  .steps-carousel--stack .tech-list { justify-content: start; }
+  .steps-carousel--stack .tech-hub { flex: 1 1 auto; min-height: 260px; }
 }

@@ -336,3 +336,98 @@ function debounce(fn, delay) {
     });
   }
 })();
+
+/* ---- I. Tech-stack 3D hubs --------------------------------------------- */
+/* One per tab. The N vertex icons sit on the vertices of the matching polyhedron
+   (4→tetrahedron, 5→triangular bipyramid, 6→octahedron, etc.) and the polyhedron's
+   real edges are drawn as a rotating wireframe; the category icon sits fixed at the
+   centre. Hidden panels have zero size — the loop no-ops until a ResizeObserver fires. */
+(function () {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hubs = Array.prototype.slice.call(document.querySelectorAll('[data-tech-hub]'));
+  if (!hubs.length) return;
+
+  // Horizontal "molecule": the category icon on the left, the tech icons fanned
+  // across to the right in a zig-zag, all linked by bonds. A fixed vertical band
+  // keeps every hub the same height regardless of how many icons it holds.
+  const BAND = 190;
+
+  function initHub(hub) {
+    const canvas = hub.querySelector('canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const center = hub.querySelector('.hub-node--center');
+    const verts = Array.prototype.slice.call(hub.querySelectorAll('.hub-node')).filter((el) => el !== center);
+    const N = verts.length;
+    if (!N) return;
+
+    const bond = (getComputedStyle(hub).getPropertyValue('--bond').trim() || '242, 183, 5');
+    let w = 0, h = 0, cy = 0, pxr = 1;
+    const base = [];   // resting positions: index 0 = category centre, 1..N = tech icons
+    let EDG = [];
+
+    function layout() {
+      base.length = 0;
+      const padX = Math.min(w * 0.12, 56);
+      const left = padX, right = w - padX;
+      const amp = (Math.min(h, BAND) / 2) * 0.78;
+      base.push({ x: left, y: cy });                       // category icon, far left
+      const gapStart = left + 78;
+      const span = Math.max(0, right - gapStart);
+      for (let i = 0; i < N; i++) {
+        const t = N === 1 ? 0.5 : i / (N - 1);
+        const x = N === 1 ? (gapStart + right) / 2 : gapStart + t * span;
+        const y = cy + (i % 2 === 0 ? -1 : 1) * amp;
+        base.push({ x: x, y: y });
+      }
+      // bonds: category → first icon, a chain along the icons, plus one branch
+      EDG = [[0, 1]];
+      for (let i = 1; i < N; i++) EDG.push([i, i + 1]);
+      if (N >= 3) EDG.push([0, 2]);
+    }
+
+    function resize() {
+      pxr = Math.min(window.devicePixelRatio || 1, 2);
+      const rect = hub.getBoundingClientRect();
+      w = rect.width; h = rect.height;
+      if (!w || !h) return;
+      canvas.width = Math.round(w * pxr); canvas.height = Math.round(h * pxr);
+      ctx.setTransform(pxr, 0, 0, pxr, 0, 0);
+      cy = h / 2;
+      layout();
+    }
+
+    const pos = [];
+    function frame(t) {
+      if (w && h && base.length) {
+        for (let i = 0; i < base.length; i++) {
+          const ph = i * 1.7;
+          pos[i] = [base[i].x + Math.sin(t * 0.0009 + ph) * 5, base[i].y + Math.cos(t * 0.0011 + ph) * 6];
+        }
+        if (center) { center.style.left = pos[0][0] + 'px'; center.style.top = pos[0][1] + 'px'; center.style.zIndex = '60'; }
+        for (let i = 0; i < N; i++) {
+          const el = verts[i];
+          el.style.left = pos[i + 1][0] + 'px';
+          el.style.top = pos[i + 1][1] + 'px';
+          el.style.setProperty('--s', '1');
+          el.style.opacity = '1';
+        }
+        ctx.clearRect(0, 0, w, h);
+        ctx.lineWidth = 1.5; ctx.lineCap = 'round'; ctx.setLineDash([]);
+        ctx.strokeStyle = 'rgba(' + bond + ', 0.5)';
+        for (let e = 0; e < EDG.length; e++) {
+          const a = pos[EDG[e][0]], b = pos[EDG[e][1]];
+          if (!a || !b) continue;
+          ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
+        }
+      }
+      if (!reduce) requestAnimationFrame(frame);
+    }
+    resize();
+    window.addEventListener('resize', () => { resize(); if (reduce) frame(0); });
+    if (window.ResizeObserver) { const ro = new ResizeObserver(() => { resize(); if (reduce) frame(0); }); ro.observe(hub); }
+    if (reduce) { resize(); frame(0); } else requestAnimationFrame(frame);
+  }
+
+  hubs.forEach(initHub);
+})();
