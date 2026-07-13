@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="560" viewBox="0 0 880 560" font-family="'IBM Plex Sans',sans-serif">
+  <rect width="880" height="560" fill="#0F1112"/>
+  <rect x="0" y="0" width="880" height="52" fill="#161A1C"/>
+  <circle cx="28" cy="26" r="6" fill="#e0554e"/><circle cx="50" cy="26" r="6" fill="#F2B705"/><circle cx="72" cy="26" r="6" fill="#35c07a"/>
+  <text x="104" y="31" fill="rgba(252,252,252,0.6)" font-size="14">Dashboard — Alert &amp; dispatch</text>
+  <rect x="330" y="90" width="220" height="410" rx="30" fill="#161A1C" stroke="rgba(252,252,252,0.12)" stroke-width="2"/>
+  <rect x="352" y="120" width="176" height="350" rx="14" fill="#0F1112"/>
+  <text x="368" y="150" fill="rgba(252,252,252,0.4)" font-size="11">7:02 AM · Push</text>
+  <rect x="368" y="164" width="144" height="120" rx="12" fill="rgba(242,183,5,0.10)" stroke="#F2B705"/>
+  <circle cx="392" cy="192" r="12" fill="rgba(242,183,5,0.18)"/>
+  <text x="387" y="197" fill="#F2B705" font-size="14" font-weight="800">!</text>
+  <text x="414" y="190" fill="#FCFCFC" font-size="11" font-weight="700">New alert</text>
+  <text x="380" y="228" fill="#FCFCFC" font-size="12" font-weight="700">Unit C</text>
+  <text x="380" y="246" fill="rgba(252,252,252,0.6)" font-size="10">−18% vs baseline</text>
+  <text x="380" y="264" fill="rgba(252,252,252,0.6)" font-size="10">Probable cause tagged</text>
+  <rect x="368" y="300" width="144" height="34" rx="8" fill="#F2B705"/>
+  <text x="440" y="322" fill="#0F1112" font-size="12" font-weight="700" text-anchor="middle">Assign owner</text>
+  <rect x="368" y="344" width="144" height="34" rx="8" fill="none" stroke="rgba(252,252,252,0.2)"/>
+  <text x="440" y="366" fill="rgba(252,252,252,0.7)" font-size="12" text-anchor="middle">Snooze 1h</text>
+  <text x="440" y="418" fill="#35c07a" font-size="11" text-anchor="middle">Mean time to alert: 11 min</text>
+</svg>

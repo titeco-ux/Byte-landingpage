@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="360" viewBox="0 0 300 360" font-family="'IBM Plex Sans',sans-serif">
+  <rect width="300" height="360" rx="16" fill="#161A1C" stroke="rgba(224,85,78,0.35)" stroke-width="1"/>
+  <text x="24" y="44" fill="#e0554e" font-size="13" font-weight="700" letter-spacing="1.5">BEFORE</text>
+  <text x="24" y="68" fill="#FCFCFC" font-size="18" font-weight="700">Reactive</text>
+  <text x="24" y="90" fill="rgba(252,252,252,0.55)" font-size="12">Problem surfaces too late</text>
+  <g stroke="rgba(252,252,252,0.10)" stroke-width="1">
+    <line x1="30" y1="130" x2="270" y2="130"/><line x1="30" y1="180" x2="270" y2="180"/>
+    <line x1="30" y1="230" x2="270" y2="230"/><line x1="30" y1="280" x2="270" y2="280"/>
+  </g>
+  <polyline points="30,150 70,140 100,175 130,150 160,215 200,205 240,270 270,255" fill="none" stroke="#e0554e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="240" cy="270" r="5" fill="#e0554e"/>
+  <text x="24" y="330" fill="#e0554e" font-size="34" font-weight="800" letter-spacing="-1">−17%</text>
+  <text x="150" y="330" fill="rgba(252,252,252,0.45)" font-size="12">metric</text>
+</svg>

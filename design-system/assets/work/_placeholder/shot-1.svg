@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="560" viewBox="0 0 880 560" font-family="'IBM Plex Sans',sans-serif">
+  <rect width="880" height="560" fill="#0F1112"/>
+  <rect x="0" y="0" width="880" height="52" fill="#161A1C"/>
+  <circle cx="28" cy="26" r="6" fill="#e0554e"/><circle cx="50" cy="26" r="6" fill="#F2B705"/><circle cx="72" cy="26" r="6" fill="#35c07a"/>
+  <text x="104" y="31" fill="rgba(252,252,252,0.6)" font-size="14">Dashboard — Overview</text>
+  <text x="40" y="104" fill="#F2B705" font-size="13" font-weight="700" letter-spacing="1.5">LIVE</text>
+  <text x="40" y="132" fill="#FCFCFC" font-size="24" font-weight="800">248 assets monitored</text>
+  <g fill="#161A1C" stroke="rgba(252,252,252,0.08)">
+    <rect x="40" y="160" width="180" height="110" rx="12"/><rect x="240" y="160" width="180" height="110" rx="12"/>
+    <rect x="440" y="160" width="180" height="110" rx="12"/><rect x="640" y="160" width="180" height="110" rx="12"/>
+    <rect x="40" y="290" width="180" height="110" rx="12"/><rect x="240" y="290" width="180" height="110" rx="12"/>
+    <rect x="640" y="290" width="180" height="110" rx="12"/>
+  </g>
+  <rect x="440" y="290" width="180" height="110" rx="12" fill="rgba(224,85,78,0.10)" stroke="#e0554e"/>
+  <g font-size="12" fill="rgba(252,252,252,0.55)">
+    <text x="60" y="190">Unit A</text><text x="260" y="190">Unit B</text><text x="460" y="190">Unit C</text><text x="660" y="190">Unit D</text>
+    <text x="60" y="320">Unit E</text><text x="260" y="320">Unit F</text><text x="660" y="320">Unit H</text>
+  </g>
+  <g font-size="22" font-weight="800" fill="#35c07a"><text x="60" y="234">99.4%</text><text x="260" y="234">98.9%</text><text x="460" y="234">99.1%</text><text x="660" y="234">99.6%</text><text x="60" y="364">99.0%</text><text x="260" y="364">98.7%</text><text x="660" y="364">99.3%</text></g>
+  <text x="460" y="364" font-size="22" font-weight="800" fill="#e0554e">82.3%</text>
+  <text x="460" y="386" font-size="11" fill="#e0554e">flagged · needs attention</text>
+  <rect x="40" y="440" width="500" height="72" rx="12" fill="#161A1C" stroke="rgba(224,85,78,0.5)"/>
+  <circle cx="76" cy="476" r="14" fill="rgba(224,85,78,0.15)" stroke="#e0554e"/>
+  <text x="70" y="481" fill="#e0554e" font-size="16" font-weight="800">!</text>
+  <text x="104" y="470" fill="#FCFCFC" font-size="14" font-weight="700">Unit C — underperforming</text>
+  <text x="104" y="492" fill="rgba(252,252,252,0.55)" font-size="12">Detected 11 min ago · owner notified</text>
+</svg>

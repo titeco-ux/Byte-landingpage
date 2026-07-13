@@ -32,12 +32,17 @@ css/
   tokens.css       ← all design tokens (CSS custom properties). The re-skin knob.
   base.css         ← reset, element typography, layout primitives, utilities
   components.css   ← every reusable component + section pattern + animation CSS
+  work.css         ← case-study / project-page layout (hero, meta band, case-split,
+                     arch-flow, gallery+lightbox, work-cta, store-badges, case-pager)
 js/
-  animations.js    ← all interactions (nav, carousels, tabs, globe, forms, modal)
+  animations.js    ← all interactions (nav, carousels, tabs, globe, forms, modal, lightbox)
   hero-globe.js    ← the bespoke spinning Americas globe (optional; needs geojson)
 assets/
-  geo/world.geojson  ← country outlines for hero-globe.js
-  images/logo-Bn.svg ← the ByteNana logo mark (replace with your own)
+  geo/world.geojson       ← country outlines for hero-globe.js
+  images/logo-Bn.svg      ← the ByteNana logo mark (replace with your own)
+  work/_placeholder/*.svg ← neutral before/after + screenshot placeholders for case-study.html
+starter.html       ← minimal landing page wiring the whole system together
+case-study.html    ← project / case-study page template (needs work.css + lightbox)
 ```
 
 **Load order** (in `<head>` then before `</body>`):
@@ -48,6 +53,7 @@ assets/
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/work.css">   <!-- only on case-study / project pages -->
 ...
 <script src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>
 <script src="js/hero-globe.js" defer></script>   <!-- only if you use the hero globe -->
@@ -286,6 +292,7 @@ on every page. Hooks:
 | **D. Step carousel** | `.steps-carousel` | Dots, swipe, auto-advance (4.5s), pause on hover/focus |
 | **E. Molecular globe** | `[data-globe]` | Projects nodes onto a spinning sphere; draws bonds. Per-hub `data-radius`, `data-spin`, `data-edges`, `--bond` |
 | **F. Forms + modal** | `#contact-form`, `.js-book`, `#booking-modal` | Validation, Netlify POST, modal gate. Set calendar URL via `data-booking-url` on the modal |
+| **J. Gallery lightbox** | `.gallery .shot img` (case-study pages) | Click any framed screenshot to enlarge; Esc / click closes. Builds its own `.lightbox` overlay |
 
 **hero-globe.js** is separate and bespoke: a rotating orthographic Americas globe with a
 dot-sphere, country outlines (Brazil highlighted), and animated "data arrows" from Brazil to
@@ -321,4 +328,38 @@ See `starter.html` for a minimal page that wires the whole system together.
 - `overflow-x: hidden` on `body` guards the off-screen-sliding navbar.
 - Heavy bits to watch: two `requestAnimationFrame` globes and the 248KB geojson. Drop the hero
   globe if the new site doesn't need it.
+
+---
+
+## 11. Case-study / project page (`work.css`)
+
+A second page type layered on the same tokens: the **project / case-study page**. It lives in
+`css/work.css` (composition only — every value comes from `tokens.css`) plus the **gallery
+lightbox** (module J in `animations.js`). Add both to a page's `<head>`/scripts to use it.
+Start from `case-study.html`. Neutral image placeholders ship in `assets/work/_placeholder/`.
+
+**Section order (top → bottom):**
+1. `.work-hero` — full-viewport darkened hero. Either a **client logo** (`.work-hero__logo
+   .work-hero__logo--mono` → forced white; needs a transparent-bg PNG) **or**, for your own
+   products, a yellow eyebrow (`.section-label`) + `h1` + `.lede`. Set `.work-hero__bg`
+   `background-image` (photo, or a gradient for a no-photo build).
+2. `.case-meta-band` (carries `data-nav-collapse-anchor`) → `.case-meta` grid of four
+   `.case-meta__item` (`.case-meta__k` label + `.case-meta__v` value). Hover = pop + turn yellow.
+3. **01 Challenge** — `.case-split` (`.case-split__text` + `.case-split__media`). The media is a
+   `.case-transform`: before `<img>` → `.case-transform__arrow` → after `<img>`.
+4. **02 Solution** — `.arch-flow` of three `.arch-step` (`.arch-step__n` numbered atom + a `<div>`
+   with `h4` + `p`), bonded by a connecting line. Wrap 2–4 in `.section-mesh .mesh-merge` to
+   share one continuous dot mesh.
+5. **03 Gallery** — `.section--light` + `.gallery` of `.shot` figures (`<img>` + `.shot__cap`).
+   Images open in the lightbox (module J).
+6. **04 Key features** — `.section--light` + `.card-grid.card-grid--3` of `.card`.
+7. **05 Result** — `.work-cta` (centered) + `.store-badges` (`.store-badge` pills).
+8. **06 Technologies** — `.card-grid.card-grid--2-4` of `.card.card--invert`.
+9. `.case-pager` — yellow stripe with prev/next `.case-pager__link`.
+10. Final `.section--light .work-cta`.
+
+**Rules carried over:** client logos always render **white** (`--mono`); your own products use the
+eyebrow variant instead. `work.css` also ships the homepage/index helpers `.work-feature`
+(full-bleed hover-reveal card), `.work-card`/`.work-grid` (Our-Work index grid), and About-page
+`.team-grid` / `.mol-timeline` — harmless if unused.
 ```

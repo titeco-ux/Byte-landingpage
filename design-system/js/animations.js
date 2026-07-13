@@ -431,3 +431,32 @@ function debounce(fn, delay) {
 
   hubs.forEach(initHub);
 })();
+
+/* ---- J. Gallery lightbox  (.gallery .shot img) ------------------------- */
+/* Case-study / project pages: click any framed screenshot to enlarge.
+   No-ops on pages without a .gallery. Esc or any click closes. */
+(function () {
+  const imgs = Array.prototype.slice.call(document.querySelectorAll('.gallery .shot img'));
+  if (!imgs.length) return;
+
+  const overlay = document.createElement('div');
+  overlay.className = 'lightbox';
+  overlay.setAttribute('aria-hidden', 'true');
+  overlay.innerHTML = '<button class="lightbox__close" type="button" aria-label="Close">&times;</button><img class="lightbox__img" alt="">';
+  document.body.appendChild(overlay);
+  const lbImg = overlay.querySelector('.lightbox__img');
+
+  function open(src, alt) {
+    lbImg.src = src; lbImg.alt = alt || '';
+    overlay.classList.add('is-open'); overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function close() {
+    overlay.classList.remove('is-open'); overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  imgs.forEach((img) => img.addEventListener('click', () => open(img.currentSrc || img.src, img.alt)));
+  overlay.addEventListener('click', close);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && overlay.classList.contains('is-open')) close(); });
+})();

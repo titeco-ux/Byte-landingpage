@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="560" viewBox="0 0 880 560" font-family="'IBM Plex Sans',sans-serif">
+  <rect width="880" height="560" fill="#0F1112"/>
+  <rect x="0" y="0" width="880" height="52" fill="#161A1C"/>
+  <circle cx="28" cy="26" r="6" fill="#e0554e"/><circle cx="50" cy="26" r="6" fill="#F2B705"/><circle cx="72" cy="26" r="6" fill="#35c07a"/>
+  <text x="104" y="31" fill="rgba(252,252,252,0.6)" font-size="14">Dashboard — Detail view</text>
+  <text x="40" y="104" fill="#F2B705" font-size="13" font-weight="700" letter-spacing="1.5">ACTUAL vs. EXPECTED BASELINE</text>
+  <g stroke="rgba(252,252,252,0.10)" stroke-width="1">
+    <line x1="60" y1="140" x2="60" y2="440"/><line x1="60" y1="440" x2="840" y2="440"/>
+    <line x1="60" y1="240" x2="840" y2="240"/><line x1="60" y1="340" x2="840" y2="340"/>
+  </g>
+  <polyline fill="none" stroke="rgba(242,183,5,0.5)" stroke-width="2" stroke-dasharray="6 6" points="60,400 180,300 320,210 460,180 600,200 740,270 840,360"/>
+  <polyline fill="none" stroke="#35c07a" stroke-width="2.5" points="60,404 180,306 320,216 460,186 600,206 740,276 840,364"/>
+  <polyline fill="none" stroke="#35c07a" stroke-width="2" opacity="0.6" points="60,408 180,312 320,222 460,192 600,212 740,282 840,370"/>
+  <polyline fill="none" stroke="#e0554e" stroke-width="3" points="60,406 180,320 320,270 460,300 600,330 740,370 840,410"/>
+  <circle cx="460" cy="300" r="6" fill="#e0554e"/>
+  <rect x="392" y="250" width="150" height="40" rx="8" fill="#161A1C" stroke="rgba(224,85,78,0.5)"/>
+  <text x="404" y="266" fill="#e0554e" font-size="11" font-weight="700">−18% vs baseline</text>
+  <text x="404" y="282" fill="rgba(252,252,252,0.55)" font-size="10">probable cause tagged</text>
+  <g font-size="12">
+    <rect x="60" y="470" width="14" height="4" fill="#35c07a"/><text x="82" y="478" fill="rgba(252,252,252,0.6)">Healthy</text>
+    <rect x="180" y="470" width="14" height="4" fill="#e0554e"/><text x="202" y="478" fill="rgba(252,252,252,0.6)">Flagged</text>
+    <rect x="300" y="470" width="14" height="4" fill="rgba(242,183,5,0.6)"/><text x="322" y="478" fill="rgba(252,252,252,0.6)">Expected baseline</text>
+  </g>
+</svg>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case study — Project Name | Your Brand</title>
+  <meta name="description" content="One-line summary of what was built and the outcome it drove.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/work.css">   <!-- case-study / project-page layout -->
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header id="navbar">
+    <div class="container navbar-inner">
+      <a href="index.html#hero" class="logo" aria-label="Home">
+        <img src="assets/images/logo-Bn.svg" alt="" class="logo-mark">
+        <span class="logo-byte">Your</span><span class="logo-nana">Brand</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <ul class="nav-links">
+          <li><a href="index.html#hero">Home</a></li>
+          <li><a href="our-work.html">Our work</a></li>
+          <li><a href="#book" class="btn btn-primary btn-sm js-book">Book a call</a></li>
+        </ul>
+      </nav>
+      <button id="menu-toggle" class="menu-toggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      <button id="nav-toggle" class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+        <iconify-icon class="nav-toggle__open" icon="mdi:menu"></iconify-icon>
+        <iconify-icon class="nav-toggle__close" icon="mdi:close"></iconify-icon>
+      </button>
+    </div>
+    <nav id="mobile-menu" class="mobile-menu" aria-label="Mobile navigation">
+      <ul>
+        <li><a href="index.html#hero">Home</a></li>
+        <li><a href="our-work.html">Our work</a></li>
+        <li><a href="#book" class="js-book">Book a call</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <!-- Product / no-client-logo variant: yellow eyebrow + h1 (used here). -->
+    <!-- Client-logo variant instead: drop a transparent-bg PNG and add the class
+         work-hero__logo--mono so it renders WHITE on the dark hero:
+         <img src="assets/work/<slug>/client-logo.png" alt="Client" class="work-hero__logo work-hero__logo--mono"> -->
+    <section class="work-hero">
+      <div class="work-hero__bg" style="background-image:radial-gradient(120% 90% at 70% 15%, rgba(242,183,5,0.18), transparent 55%), linear-gradient(180deg, #14181a, #0F1112)"></div>
+      <div class="container">
+        <p class="section-label" style="text-align:center;color:var(--color-primary)">Case study · Client name</p>
+        <h1>The outcome, stated as a headline</h1>
+        <p class="lede">One or two sentences of context: who the client is, what they needed, and the shape of what you delivered.</p>
+      </div>
+    </section>
+
+    <!-- META BAND + CHALLENGE + SOLUTION share one continuous dot mesh -->
+    <div class="section-mesh mesh-merge">
+    <section class="case-meta-band" data-nav-collapse-anchor>
+      <div class="container">
+        <div class="case-meta">
+          <div class="case-meta__item"><p class="case-meta__k">Industry</p><p class="case-meta__v">e.g. Fintech</p></div>
+          <div class="case-meta__item"><p class="case-meta__k">Project type</p><p class="case-meta__v">e.g. Platform build</p></div>
+          <div class="case-meta__item"><p class="case-meta__k">Key tech</p><p class="case-meta__v">Tool · Tool · Tool</p></div>
+          <div class="case-meta__item"><p class="case-meta__k">Outcome</p><p class="case-meta__v">The headline result</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 01 THE CHALLENGE -->
+    <section>
+      <div class="container">
+        <div class="case-split">
+          <div class="case-split__text">
+            <p class="section-label">01 — The challenge</p>
+            <h2>What was broken or missing</h2>
+            <p class="section-intro">Describe the problem in the client's terms: the friction, the cost of the status quo, and why it mattered. Keep it concrete.</p>
+          </div>
+          <div class="case-split__media">
+            <div class="case-transform">
+              <img src="assets/work/_placeholder/before.svg" alt="Before: the reactive status quo" loading="lazy">
+              <span class="case-transform__arrow" aria-hidden="true">→</span>
+              <img src="assets/work/_placeholder/after.svg" alt="After: the proactive outcome" loading="lazy">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 THE SOLUTION -->
+    <section>
+      <div class="container">
+        <p class="section-label">02 — The solution</p>
+        <h2>What you built, in one line</h2>
+        <p class="section-intro">A short paragraph on the approach. Then the architecture flow below — three steps, each a numbered atom bonded to the next.</p>
+        <div class="arch-flow">
+          <div class="arch-step"><span class="arch-step__n">1</span><div><h4>Step one</h4><p>What this stage does.</p></div></div>
+          <div class="arch-step"><span class="arch-step__n">2</span><div><h4>Step two</h4><p>What this stage does.</p></div></div>
+          <div class="arch-step"><span class="arch-step__n">3</span><div><h4>Step three</h4><p>What this stage does.</p></div></div>
+        </div>
+      </div>
+    </section>
+    </div>
+
+    <!-- 03 GALLERY (click a screenshot to enlarge — lightbox module J) -->
+    <section class="section--light">
+      <div class="container">
+        <p class="section-label">03 — Inside the product</p>
+        <h2>Show the work</h2>
+        <p class="section-intro">Swap these placeholders for real screenshots. Click any to enlarge.</p>
+        <div class="gallery">
+          <figure class="shot">
+            <img src="assets/work/_placeholder/shot-1.svg" alt="Overview screen" loading="lazy">
+            <figcaption class="shot__cap">Caption describing this screen.</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="assets/work/_placeholder/shot-2.svg" alt="Detail screen" loading="lazy">
+            <figcaption class="shot__cap">Caption describing this screen.</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="assets/work/_placeholder/shot-3.svg" alt="Alert screen" loading="lazy">
+            <figcaption class="shot__cap">Caption describing this screen.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 KEY FEATURES -->
+    <section class="section--light">
+      <div class="container">
+        <p class="section-label">04 — Key features</p>
+        <h2>What it does</h2>
+        <div class="card-grid card-grid--3">
+          <div class="card"><span class="card-icon" aria-hidden="true"><iconify-icon icon="mdi:flash-outline"></iconify-icon></span><h3>Feature one</h3><p>One sentence on the value.</p></div>
+          <div class="card"><span class="card-icon" aria-hidden="true"><iconify-icon icon="mdi:shield-check-outline"></iconify-icon></span><h3>Feature two</h3><p>One sentence on the value.</p></div>
+          <div class="card"><span class="card-icon" aria-hidden="true"><iconify-icon icon="mdi:chart-line"></iconify-icon></span><h3>Feature three</h3><p>One sentence on the value.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 THE RESULT -->
+    <section class="work-cta">
+      <div class="container">
+        <p class="section-label" style="text-align:center">05 — The result</p>
+        <h2>The measurable outcome</h2>
+        <p class="section-intro" style="max-width:60ch;margin:var(--space-4) auto 0">Quantify it: the number, the time saved, the money recovered. Then where it ships.</p>
+        <p class="store-badges">
+          <span class="store-badge"><iconify-icon icon="mdi:web"></iconify-icon> Web</span>
+          <span class="store-badge"><iconify-icon icon="simple-icons:apple"></iconify-icon> iOS</span>
+          <span class="store-badge"><iconify-icon icon="simple-icons:android"></iconify-icon> Android</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- 06 TECHNOLOGIES -->
+    <section>
+      <div class="container">
+        <p class="section-label">06 — Technologies</p>
+        <h2>The stack</h2>
+        <div class="card-grid card-grid--2-4">
+          <div class="card card--invert"><span class="card-icon" aria-hidden="true"><iconify-icon icon="simple-icons:react"></iconify-icon></span><h3>Tool</h3><p>Why it's here.</p></div>
+          <div class="card card--invert"><span class="card-icon" aria-hidden="true"><iconify-icon icon="simple-icons:nodedotjs"></iconify-icon></span><h3>Tool</h3><p>Why it's here.</p></div>
+          <div class="card card--invert"><span class="card-icon" aria-hidden="true"><iconify-icon icon="simple-icons:postgresql"></iconify-icon></span><h3>Tool</h3><p>Why it's here.</p></div>
+          <div class="card card--invert"><span class="card-icon" aria-hidden="true"><iconify-icon icon="simple-icons:amazonaws"></iconify-icon></span><h3>Tool</h3><p>Why it's here.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECT PAGER — yellow stripe, browse between case studies -->
+    <section class="case-pager" aria-label="Browse case studies">
+      <div class="container case-pager__inner">
+        <a class="case-pager__link case-pager__link--prev" href="#">
+          <iconify-icon class="case-pager__chev" icon="mdi:chevron-left" aria-hidden="true"></iconify-icon>
+          <span class="case-pager__label">Previous project</span>
+        </a>
+        <span class="case-pager__sep" aria-hidden="true"></span>
+        <a class="case-pager__link case-pager__link--next" href="#">
+          <span class="case-pager__label">Next project</span>
+          <iconify-icon class="case-pager__chev" icon="mdi:chevron-right" aria-hidden="true"></iconify-icon>
+        </a>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="section--light work-cta">
+      <div class="container">
+        <p class="section-label" style="text-align:center">A one-line hook.</p>
+        <h2>Ready to build something like this?</h2>
+        <a href="#book" class="btn btn-primary js-book">Book a call →</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer id="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="index.html#hero" class="logo"><img src="assets/images/logo-Bn.svg" alt="" class="logo-mark"><span class="logo-byte">Your</span><span class="logo-nana">Brand</span></a>
+        <p>Replace this with your own brand line.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Booking modal (gate → external calendar; set data-booking-url) -->
+  <div id="booking-modal" class="booking-modal" hidden data-booking-url="https://example.com/book">
+    <div class="booking-modal__backdrop" data-close></div>
+    <div class="booking-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="booking-modal-title">
+      <button class="booking-modal__close" type="button" aria-label="Close" data-close>&times;</button>
+      <h3 id="booking-modal-title">Let's get you on the calendar</h3>
+      <p class="booking-modal__intro">Drop your name and email and we'll take you to the calendar.</p>
+      <form id="booking-form" class="booking-form" name="booking" method="POST" data-netlify="true" novalidate>
+        <input type="hidden" name="form-name" value="booking">
+        <div class="form-group"><label for="book-name">Name</label><input id="book-name" name="name" placeholder="Your name" required></div>
+        <div class="form-group"><label for="book-email">Work email</label><input type="email" id="book-email" name="email" placeholder="you@company.com" required></div>
+        <button type="submit" class="btn btn-primary btn-full">Continue to calendar →</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>
+  <script src="js/animations.js"></script>
+</body>
+</html>
