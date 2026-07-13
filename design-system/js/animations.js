@@ -337,11 +337,11 @@ function debounce(fn, delay) {
   }
 })();
 
-/* ---- I. Tech-stack 3D hubs --------------------------------------------- */
-/* One per tab. The N vertex icons sit on the vertices of the matching polyhedron
-   (4→tetrahedron, 5→triangular bipyramid, 6→octahedron, etc.) and the polyhedron's
-   real edges are drawn as a rotating wireframe; the category icon sits fixed at the
-   centre. Hidden panels have zero size — the loop no-ops until a ResizeObserver fires. */
+/* ---- I. Tech-stack molecular hubs  [data-tech-hub] --------------------- */
+/* Each hub auto-lays-out its .hub-node children: the .hub-node--center category
+   icon is pinned left, the tool icons fan out to the right in a gentle zig-zag,
+   drifting, joined by canvas bond lines. No coordinates needed. Hidden slides have
+   zero size — the loop no-ops until a ResizeObserver fires when the slide shows. */
 (function () {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const hubs = Array.prototype.slice.call(document.querySelectorAll('[data-tech-hub]'));

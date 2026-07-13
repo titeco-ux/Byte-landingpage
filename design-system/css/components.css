@@ -834,7 +834,7 @@ body.modal-open { overflow: hidden; }
    canvas bond lines. Each hub auto-lays-out from its .hub-node children — no
    coordinates needed. Driven by the [data-tech-hub] module in animations.js.
    ========================================================================== */
-.tech-hub { width: 100%; max-width: 462px; min-height: 374px; }
+.tech-hub { width: 100%; max-width: 462px; min-height: 300px; }
 .tech-list { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-2) var(--space-3); margin: 0; padding: 0; list-style: none; }
 .tech-list li {
   padding: var(--space-2) var(--space-4);
@@ -849,19 +849,24 @@ body.modal-open { overflow: hidden; }
 .steps-carousel--stack .step,
 .steps-carousel--stack .step:nth-child(odd),
 .steps-carousel--stack .step:nth-child(even) { background-color: var(--color-surface); }
-.steps-carousel--stack .step { align-items: center; text-align: center; gap: var(--space-6); }
+.steps-carousel--stack .step { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: var(--space-6); }
 .steps-carousel--stack .step h3,
 .steps-carousel--stack .step:nth-child(odd) h3,
 .steps-carousel--stack .step:nth-child(even) h3 { color: #F1F1F1; }
 .steps-carousel--stack .stack-card__text { display: flex; flex-direction: column; align-items: center; gap: var(--space-4); width: 100%; }
 .steps-carousel--stack .stack-cat { display: inline-flex; align-items: center; gap: var(--space-3); font-size: var(--text-xl); }
-.steps-carousel--stack .stack-cat__ic { width: 1.3em; height: 1.3em; fill: var(--color-primary); flex: 0 0 auto; }
+.steps-carousel--stack .stack-cat iconify-icon { font-size: 1.3em; flex: 0 0 auto; }
 .steps-carousel--stack .stack-desc { margin: 0; font-size: var(--text-sm); line-height: 1.6; max-width: 42ch; }
 .steps-carousel--stack .step .stack-desc,
 .steps-carousel--stack .step:nth-child(odd) .stack-desc,
 .steps-carousel--stack .step:nth-child(even) .stack-desc { color: #F1F1F1; }
 .steps-carousel--stack .tech-list { margin: 0; order: 0; }
-.steps-carousel--stack .tech-list li { border-radius: var(--radius-lg); background-color: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.12); color: #F1F1F1; }
+.steps-carousel--stack .tech-list li {
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid rgba(255, 255, 255, 0.12); border-radius: var(--radius-lg);
+  background-color: rgba(255, 255, 255, 0.05); color: #F1F1F1;
+  font-family: var(--font-heading); font-weight: 600; font-size: var(--text-sm);
+}
 .steps-carousel--stack .tech-hub { width: 100%; max-width: none; min-height: 240px; }
 /* hub sits on a dark card even inside a light section: restore dark bonds/nodes */
 .section--light .steps-carousel--stack .cta-hub { --bond: 242, 183, 5; }
@@ -871,7 +876,7 @@ body.modal-open { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) { .steps-carousel--stack .step.is-active .tech-hub { animation: none; } }
 @media (min-width: 768px) {
   .steps-carousel--stack .step { flex-direction: row; align-items: center; text-align: left; gap: var(--space-10); }
-  .steps-carousel--stack .stack-card__text { flex: 0 0 auto; width: auto; align-items: flex-start; align-self: flex-start; }
+  .steps-carousel--stack .stack-card__text { flex: 0 0 auto; width: auto; max-width: 320px; align-items: flex-start; align-self: flex-start; }
   .steps-carousel--stack .tech-list { justify-content: start; }
-  .steps-carousel--stack .tech-hub { flex: 1 1 auto; min-height: 260px; }
+  .steps-carousel--stack .tech-hub { flex: 1 1 auto; min-height: 300px; }
 }
